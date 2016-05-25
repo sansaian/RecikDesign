@@ -12,23 +12,107 @@
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="match_parent"
-        android:layout_height="300dp"
+        android:layout_height="400dp"
         android:background="#99d653"
         android:scaleType="center"
-        android:layout_above="@+id/onOffButton"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginBottom="26dp">
+        android:layout_below="@+id/linearLayout"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        >
     </ImageView>
+
+ <!--   <RelativeLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:background="#ffffff"
+        android:id="@+id/linearLayout"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
+        <RadioGroup
+            android:checkedButton="@+id/offer"
+            android:id="@+id/toggle"
+            android:layout_width="200dp"
+            android:layout_height="30dp"
+            android:background="@drawable/out_line"
+            android:orientation="horizontal"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true">
+
+            <RadioButton
+                android:layout_marginTop="1dp"
+                android:layout_marginBottom="1dp"
+                android:layout_marginLeft="1dp"
+                android:id="@+id/search"
+                android:background="@drawable/toggle_widget_background"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:button="@null"
+                android:gravity="center"
+                android:text="Режимы"
+                android:textColor="#FFFFFFFF" />
+
+            <RadioButton
+                android:layout_marginRight="1dp"
+                android:layout_marginTop="1dp"
+                android:layout_marginBottom="1dp"
+                android:id="@+id/offer"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/toggle_widget_background"
+                android:button="@null"
+                android:gravity="center"
+                android:text="Показатели"
+                android:textColor="#FFFFFFFF" />
+        </RadioGroup>
+    </RelativeLayout> -->
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_below="@+id/linearLayout"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:id="@+id/relativeLayout">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="Весь дом"
+            android:id="@+id/textPointerOnRoom"
+            android:layout_centerVertical="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginLeft="19dp"
+            android:layout_marginStart="19dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="Средние показатели"
+            android:id="@+id/textheAverage"
+            android:layout_marginRight="21dp"
+            android:layout_marginEnd="21dp"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true" />
+
+    </RelativeLayout>
 
     <TableLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:stretchColumns="*"
-        android:layout_centerHorizontal="true"
-        android:layout_alignBottom="@+id/imageView"
         android:id="@+id/tableLayout"
-        android:layout_alignTop="@+id/imageView">
+        android:layout_below="@+id/relativeLayout"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="22dp">
 
         <TableRow
             android:layout_width="match_parent"
@@ -37,7 +121,7 @@
             <RelativeLayout
                 android:orientation="vertical"
                 android:layout_width="100dp"
-                android:layout_height="60dp"
+                android:layout_height="70dp"
                 android:layout_weight="1">
 
                 <TextView
@@ -47,7 +131,6 @@
                     android:text="Температура в доме"
                     android:id="@+id/textView31"
                     android:textSize="14dp"
-                    android:textColor="#0e0d0d"
                     android:layout_alignParentTop="true"
                     android:layout_alignStart="@+id/textShowTemper"
                     android:layout_alignLeft="@+id/textShowTemper" />
@@ -60,16 +143,16 @@
                     android:text="0"
                     android:id="@+id/textShowTemper"
                     android:layout_marginLeft="20dp"
+                    android:layout_marginStart="20dp"
                     android:layout_centerVertical="true"
                     android:layout_alignParentLeft="true"
-                    android:layout_alignParentStart="true"
-                    android:layout_marginStart="20dp" />
+                    android:layout_alignParentStart="true" />
             </RelativeLayout>
 
             <RelativeLayout
                 android:orientation="vertical"
                 android:layout_width="100dp"
-                android:layout_height="60dp"
+                android:layout_height="70dp"
                 android:layout_weight="1">
 
                 <TextView
@@ -79,7 +162,6 @@
                     android:text="За окном"
                     android:id="@+id/textView30"
                     android:textSize="14dp"
-                    android:textColor="#0e0d0d"
                     android:layout_alignParentTop="true"
                     android:layout_alignLeft="@+id/textView33" />
 
@@ -90,16 +172,18 @@
                     android:textStyle="bold"
                     android:text="0"
                     android:id="@+id/textView33"
-                    android:layout_below="@+id/textView30"
+                    android:layout_marginLeft="20dp"
+                    android:layout_centerVertical="true"
                     android:layout_alignParentLeft="true"
-                    android:layout_marginLeft="16dp" />
+                    android:layout_alignParentStart="true"
+                    android:layout_marginStart="20dp" />
             </RelativeLayout>
 
         </TableRow>
 
         <TableRow
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content">
 
             <RelativeLayout
                 android:orientation="vertical"
@@ -113,7 +197,6 @@
                     android:text="Уровень CO2"
                     android:id="@+id/textView34"
                     android:textSize="14dp"
-                    android:textColor="#0e0d0d"
                     android:layout_above="@+id/textShowCO2"
                     android:layout_alignStart="@+id/textShowCO2" />
 
@@ -144,7 +227,6 @@
                     android:text="Уровень CO"
                     android:id="@+id/textView35"
                     android:textSize="14dp"
-                    android:textColor="#0e0d0d"
                     android:layout_alignParentTop="true"
                     android:layout_alignLeft="@+id/textShowCO"
                     android:layout_alignStart="@+id/textShowCO" />
@@ -156,11 +238,15 @@
                     android:textStyle="bold"
                     android:text="@string/_0"
                     android:id="@+id/textShowCO"
-                    android:layout_centerVertical="true"
-                    android:layout_centerHorizontal="true" />
+                    android:layout_below="@+id/textView35"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginStart="20dp" />
 
             </RelativeLayout>
         </TableRow>
+
         <TableRow
             android:layout_width="match_parent"
             android:layout_height="match_parent">
@@ -176,10 +262,9 @@
                     android:text="Влажность"
                     android:id="@+id/textView38"
                     android:textSize="14dp"
-                    android:textColor="#0e0d0d"
                     android:layout_alignParentTop="true"
                     android:layout_alignParentStart="true"
-                    android:layout_marginStart="19dp" />
+                    android:layout_marginStart="20dp" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -205,10 +290,9 @@
                     android:text="Атм. давление"
                     android:id="@+id/textView39"
                     android:textSize="14dp"
-                    android:textColor="#0e0d0d"
                     android:layout_alignParentTop="true"
                     android:layout_alignParentStart="true"
-                    android:layout_marginStart="18dp" />
+                    android:layout_marginStart="20dp" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -220,47 +304,77 @@
                     android:layout_below="@+id/textView39"
                     android:layout_alignStart="@+id/textView39" />
 
-                <ProgressBar
-                    style="?android:attr/progressBarStyleHorizontal"
-                    android:layout_width="130dp"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/progressBar5"
-                    android:layout_below="@+id/textShowPressure"
-                    android:layout_alignStart="@+id/textShowPressure"
-                    android:progressTint="#76df8f"
-                    android:progress="50" />
             </RelativeLayout>
 
         </TableRow>
 
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <RelativeLayout
+                android:layout_width="100dp"
+                android:layout_height="70dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="Ресурс лампы"
+                    android:id="@+id/textView"
+                    android:textSize="14dp"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginStart="20dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:text="0"
+                    android:id="@+id/textView3"
+                    android:textStyle="bold"
+                    android:layout_below="@+id/textView"
+                    android:layout_alignLeft="@+id/textView"
+                    android:layout_alignStart="@+id/textView" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="100dp"
+                android:layout_height="70dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="Вентилятор"
+                    android:id="@+id/textView2"
+                    android:textSize="14dp"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginStart="20dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:text="0"
+                    android:id="@+id/textView4"
+                    android:textStyle="bold"
+                    android:layout_below="@+id/textView2"
+                    android:layout_alignLeft="@+id/textView2"
+                    android:layout_alignStart="@+id/textView2" />
+            </RelativeLayout>
+        </TableRow>
+
     </TableLayout>
 
-    <TableRow
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+    <ImageView
+        android:layout_width="290dp"
+        android:layout_height="1dp"
+        android:id="@+id/imageView2"
+        android:layout_below="@+id/relativeLayout"
         android:layout_centerHorizontal="true"
-        android:layout_below="@+id/linearLayout"
-        android:layout_above="@+id/tableLayout">
-
-    </TableRow>
-
-    <ToggleButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="New ToggleButton"
-        android:id="@+id/onOffButton"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="86dp"
-        android:checked="false" />
-
-    <LinearLayout
-        android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:layout_centerHorizontal="true"
-        android:layout_above="@+id/imageView"
-        android:background="#d24c4c"
-        android:id="@+id/linearLayout"></LinearLayout>
+        android:background="#ffffff" />
 
 </RelativeLayout>

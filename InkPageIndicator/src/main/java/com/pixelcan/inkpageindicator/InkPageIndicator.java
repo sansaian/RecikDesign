@@ -25,6 +25,7 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.database.DataSetObserver;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.RectF;
@@ -52,7 +53,7 @@ public class InkPageIndicator extends View implements ViewPager.OnPageChangeList
     private static final int DEFAULT_GAP = 12;                          // dp
     private static final int DEFAULT_ANIM_DURATION = 400;               // ms
     private static final int DEFAULT_UNSELECTED_COLOUR = 0x80ffffff;    // 50% white
-    private static final int DEFAULT_SELECTED_COLOUR = 0xffffffff;      // 100% white
+    private static final int DEFAULT_SELECTED_COLOUR = 0x00000000;      // 100% white
 
     // constants
     private static final float INVALID_FRACTION = -1f;
@@ -152,7 +153,7 @@ public class InkPageIndicator extends View implements ViewPager.OnPageChangeList
         unselectedPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         unselectedPaint.setColor(unselectedColour);
         selectedPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
-        selectedPaint.setColor(selectedColour);
+        selectedPaint.setColor(Color.parseColor("#0042b8"));
         interpolator = new FastOutSlowInInterpolator();
 
         // create paths & rect now – reuse & rewind later

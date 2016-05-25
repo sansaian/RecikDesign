@@ -1,4 +1,4 @@
-package com.pixelcan.ipidemo;
+package com.pixelcan.recirculator;
 
 import org.junit.Test;
 
