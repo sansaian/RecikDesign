@@ -11,8 +11,9 @@ class FragmentAdapter extends FragmentPagerAdapter {
 
     private int mCount = 2;//count page
     private String [] infomass = {"1","1","1","1","1","1"};
-    public FragmentAdapter(FragmentManager fm) {
-        super(fm);
+    public String typeView;
+    public FragmentAdapter(FragmentManager fm,String typeView) {
+        super( fm);
     }
     FragmentInfo [] framentMass = new FragmentInfo[2];
     //FragmentInfo fragment;
@@ -20,14 +21,17 @@ class FragmentAdapter extends FragmentPagerAdapter {
 
     @Override
     public Fragment getItem(int position) {
-        Log.d("1111", "asdasdad " + position);
-        framentMass[position] =FragmentInfo.newInstance(position);
+        Log.d("Mylog", "getItem " + this.typeView);
+        framentMass[position] =FragmentInfo.newInstance(position,typeView);
         framentMass[position].setInfomass(infomass);
         return framentMass[position];
     }
 
     @Override
     public int getCount() {
+        //Log.d("Mylog", "getCount " + this.typeView);
+        FragmentInfo.typeViewstatic = typeView;
+       // Log.d("Mylog", "getCount typeViewstatic " + this.typeView);
         return mCount;
     }
 

@@ -21,54 +21,7 @@
         >
     </ImageView>
 
- <!--   <RelativeLayout
-        android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="70dp"
-        android:background="#ffffff"
-        android:id="@+id/linearLayout"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true">
-        <RadioGroup
-            android:checkedButton="@+id/offer"
-            android:id="@+id/toggle"
-            android:layout_width="200dp"
-            android:layout_height="30dp"
-            android:background="@drawable/out_line"
-            android:orientation="horizontal"
-            android:layout_centerVertical="true"
-            android:layout_centerHorizontal="true">
 
-            <RadioButton
-                android:layout_marginTop="1dp"
-                android:layout_marginBottom="1dp"
-                android:layout_marginLeft="1dp"
-                android:id="@+id/search"
-                android:background="@drawable/toggle_widget_background"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:button="@null"
-                android:gravity="center"
-                android:text="Режимы"
-                android:textColor="#FFFFFFFF" />
-
-            <RadioButton
-                android:layout_marginRight="1dp"
-                android:layout_marginTop="1dp"
-                android:layout_marginBottom="1dp"
-                android:id="@+id/offer"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:background="@drawable/toggle_widget_background"
-                android:button="@null"
-                android:gravity="center"
-                android:text="Показатели"
-                android:textColor="#FFFFFFFF" />
-        </RadioGroup>
-    </RelativeLayout> -->
 
     <RelativeLayout
         android:layout_width="match_parent"

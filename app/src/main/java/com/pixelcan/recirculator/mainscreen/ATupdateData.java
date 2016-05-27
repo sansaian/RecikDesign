@@ -68,9 +68,12 @@ public class ATupdateData extends AsyncTask<Void, Void, String> {
 
     protected void onPostExecute(String result) {
         super.onPostExecute(result);
-        fragmentAdapter.framentMass[0].fullTextviewData(dataFromSensors);
-        fragmentAdapter.framentMass[1].fullTextviewData(dataFromSensors);
-        // fragmentAdapter.setInfomassAdapter(dataFromSensors);
+        //fragmentAdapter.setInfomassAdapter(dataFromSensors);
+        if (fragmentAdapter.framentMass[0]!=null) {
+            fragmentAdapter.framentMass[0].fullTextviewData(dataFromSensors);
+            fragmentAdapter.framentMass[1].fullTextviewData(dataFromSensors);
+        }
+            // fragmentAdapter.setInfomassAdapter(dataFromSensors);
 
         //      Log.d("MyLog", "jsonhave1 " + jsonhave);
       /*  switch (jsonhave) {
