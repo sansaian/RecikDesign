@@ -12,8 +12,8 @@
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="match_parent"
-        android:layout_height="400dp"
-        android:background="#99d653"
+        android:layout_height="440dp"
+        android:background="#ffffff"
         android:scaleType="center"
         android:layout_below="@+id/linearLayout"
         android:layout_alignParentLeft="true"

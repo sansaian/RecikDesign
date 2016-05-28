@@ -37,22 +37,21 @@ public class MainActivity extends AppCompatActivity {
         mPager = (ViewPager) findViewById(R.id.pager);
 
         mIndicator = (InkPageIndicator) findViewById(R.id.indicator);
-
+        mAdapter.typeView = "modes";
+        mPager.setAdapter(mAdapter);
+        mIndicator.setViewPager(mPager);
         radiogroup1 = (RadioGroup) findViewById(R.id.radiogroup1);
-
         callAsynchronousTask();
 
         radioListener = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // TODO Auto-generated method stub
                 RadioButton rb = (RadioButton)v;
                 switch (rb.getId()) {
                     case R.id.modes:
                         buttonmodes.setTextColor(Color.parseColor("#FFFFFFFF"));
                         buttondatainfo.setTextColor(Color.parseColor("#0086ff"));
                         mAdapter.typeView = "modes";
-
                         mPager.setAdapter(mAdapter);
                         mIndicator.setViewPager(mPager);
                         break;
@@ -101,8 +100,11 @@ public class MainActivity extends AppCompatActivity {
                 });
             }
         };
-        timer.schedule(doAsynchronousTask, 0, 5000); //execute in every 1 минута=60000
+        timer.schedule(doAsynchronousTask, 0, 1000); //execute in every 1 минута=60000
     }
 
-
+public void mainsendcomand (int position){
+    SendComand sendComand = new SendComand(position,mAdapter);
+    sendComand.sendComandonServer();
+}
 }

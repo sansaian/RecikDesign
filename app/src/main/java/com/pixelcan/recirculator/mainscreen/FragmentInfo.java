@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -14,16 +15,11 @@ import android.widget.TextView;
 import com.pixelcan.recirculator.R;
 
 public class FragmentInfo extends Fragment {
-   //  public  int numbepage;
-    private TextView textViewShowHumidity;
-    private TextView textViewShowTemper;
-    private TextView textViewShowCO;
-    public TextView textViewShowCO2;
-    private TextView textViewPressure;
-    private TextView textPointerOnRoom;
-    private TextView textheAverage;
+    //  public  int numbepage;
+    private TextView textViewShowHumidity, textViewShowTemper, textViewShowCO;
+    public TextView textViewShowCO2, textViewPressure, textPointerOnRoom;
+    private TextView textheAverage, textShowtemperondoor, textShowResLamp, textShowFun;
     private String typeView;
-    //private ToggleButton onOffButton;
     static String typeViewstatic;
     ImageView imageView;
     private static final String KEY_CONTENT = "FragmentInfo:Content";
@@ -35,17 +31,17 @@ public class FragmentInfo extends Fragment {
         this.infomass = infomass;
     }
 
-    public static FragmentInfo newInstance(int content,String typeView) {
+    public static FragmentInfo newInstance(int content, String typeView) {
         FragmentInfo fragment = new FragmentInfo();
         //numbepage = content;
-       StringBuilder builder = new StringBuilder();
+        StringBuilder builder = new StringBuilder();
         StringBuilder builder1 = new StringBuilder();
       /*  for (int i = 0; i < 20; i++) {
             builder.append(content).append(" ");
         }*/
         builder.append(content);
         builder1.append(typeView);
-    //    builder.deleteCharAt(builder.length() - 1);
+        //    builder.deleteCharAt(builder.length() - 1);
         fragment.numberpage = builder.toString();
         fragment.typeView = builder1.toString();
         return fragment;
@@ -67,13 +63,12 @@ public class FragmentInfo extends Fragment {
         View v = null;
         Log.d("Mylog", "прошло создание typeView " + typeView);
         Log.d("Mylog", "прошло создание typeViewstatic " + typeViewstatic);
-        return drowView(v,inflater,container);
+        return drowView(v, inflater, container);
     }
 
-    private View drowView(View v,LayoutInflater inflater, ViewGroup container) {
+    private View drowView(View v, LayoutInflater inflater, ViewGroup container) {
 
         // imageLine = (ImageView) v.findViewById(R.id.gineImageView);
-
         switch (typeViewstatic) {
             case "modes":
                 v = inflater.inflate(R.layout.modes, container, false);
@@ -86,6 +81,19 @@ public class FragmentInfo extends Fragment {
                         android.R.layout.simple_list_item_single_choice);
                 lvMain.setAdapter(adapter);
                 imageView = (ImageView) v.findViewById(R.id.imageView);
+                textPointerOnRoom = (TextView) v.findViewById(R.id.textPointerOnRoom);
+                setDrawableforScreenCommand();
+
+                lvMain.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    public void onItemClick(AdapterView<?> parent, View view,
+                                            int position, long id) {
+                        // SendComand sendComand = new SendComand(position);
+                        // sendComand.sendComandonServer();
+                        ((MainActivity) getActivity()).mainsendcomand(position);
+                        // Log.d("MyList", "itemClick: position = " + position + ", id = "
+                        //         + id);
+                    }
+                });
                 break;
             case "data":
                 v = inflater.inflate(R.layout.testinterface5, container, false);
@@ -94,9 +102,13 @@ public class FragmentInfo extends Fragment {
                 textViewShowHumidity = (TextView) v.findViewById(R.id.textShowHumidity);
                 textViewShowCO = (TextView) v.findViewById(R.id.textShowCO);
                 textViewShowCO2 = (TextView) v.findViewById(R.id.textShowCO2);
-                textViewPressure = (TextView) v.findViewById(R.id.textShowPressure);
+                textViewShowCO2.setText("Уровень CO"+(char)0x00B2 );
                 textPointerOnRoom = (TextView) v.findViewById(R.id.textPointerOnRoom);
+                textViewPressure = (TextView) v.findViewById(R.id.textShowPressure);
+                textShowtemperondoor = (TextView) v.findViewById(R.id.textShowtemperondoor);
                 textheAverage = (TextView) v.findViewById(R.id.textheAverage);
+                textShowResLamp = (TextView) v.findViewById(R.id.textShowResLamp);
+                textShowFun = (TextView) v.findViewById(R.id.textShowFun);
                 setDrawableforScreenData();
                 break;
         }
@@ -118,7 +130,24 @@ public class FragmentInfo extends Fragment {
                 textheAverage.setVisibility(View.INVISIBLE);
                 break;
         }
-       // imageView.setImageResource(R.drawable.shape1);
+        // imageView.setImageResource(R.drawable.shape1);
+    }
+
+
+    private void setDrawableforScreenCommand() {
+        switch (numberpage) {
+            case "0":
+                imageView.setImageResource(R.drawable.shape1);
+                textPointerOnRoom.setText("Весь дом");
+                //textheAverage.setVisibility(View.VISIBLE);
+                break;
+            case "1":
+                imageView.setImageResource(R.drawable.shapegreen);
+                textPointerOnRoom.setText("Гостиная");
+                //textheAverage.setVisibility(View.INVISIBLE);
+                break;
+        }
+        // imageView.setImageResource(R.drawable.shape1);
     }
 
     @Override
@@ -126,14 +155,18 @@ public class FragmentInfo extends Fragment {
         super.onSaveInstanceState(outState);
         outState.putString(KEY_CONTENT, numberpage);
     }
-    public void fullTextviewData(String[] data){
 
+    public void fullTextviewData(String[] data) {
 
-        textViewShowCO2.setText(data[0]);
-        textViewShowCO.setText(data[1]);
-
-        textViewShowTemper.setText(data[3]);
-        textViewPressure.setText(data[4]);
-        textViewShowHumidity.setText(data[5]);
+        if (textViewShowCO2 != null) {
+            textViewShowCO2.setText(data[0] + " %");
+            textViewShowCO.setText(data[1] + " %");
+            textShowtemperondoor.setText("0" + " " + (char) 0x00B0);
+            textViewShowTemper.setText(data[3] + " " + (char) 0x00B0);
+            textViewPressure.setText(data[4] + " mmHg");
+            textViewShowHumidity.setText(data[5] + " %");
+            textShowResLamp.setText(0 + " hr");
+            textShowFun.setText(0 + " rpm");
+        }
     }
 }

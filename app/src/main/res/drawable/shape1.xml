@@ -8,10 +8,10 @@
     </stroke>
     <gradient
         android:startColor="#0042b8"
-        android:endColor="#008de6"
+        android:endColor="#319fe4"
         android:angle="90">
     </gradient>
     <corners
-        android:radius="5dp">
+        android:radius="10dp">
     </corners>
 </shape>
