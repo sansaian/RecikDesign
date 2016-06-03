@@ -13,7 +13,7 @@
         android:id="@+id/imageView"
         android:layout_width="match_parent"
         android:layout_height="440dp"
-        android:background="#cc4b4b"
+        android:background="#bf2e2e"
         android:scaleType="center"
         android:layout_below="@+id/linearLayout"
         android:layout_alignParentLeft="true"
@@ -106,7 +106,7 @@
             <RelativeLayout
                 android:orientation="vertical"
                 android:layout_width="100dp"
-                android:layout_height="70dp"
+                android:layout_height="93dp"
                 android:layout_weight="1">
 
                 <TextView
@@ -152,7 +152,8 @@
                     android:text="Уровень CO2"
                     android:id="@+id/textView34"
                     android:textSize="12dp"
-                    android:layout_above="@+id/textShowCO2"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignLeft="@+id/textShowCO2"
                     android:layout_alignStart="@+id/textShowCO2" />
 
                 <TextView
@@ -168,12 +169,24 @@
                     android:layout_alignParentStart="true"
                     android:layout_marginStart="20dp" />
 
+                <ImageView
+                    android:layout_width="10dp"
+                    android:layout_height="10dp"
+                    android:id="@+id/ringco2"
+                    android:background="#1e7ad3"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginStart="20dp"
+                    android:layout_alignParentTop="true"
+                    android:layout_toRightOf="@+id/textView34"
+                    android:layout_toEndOf="@+id/textView34"
+                    android:layout_marginTop="3dp" />
+
             </RelativeLayout>
 
             <RelativeLayout
                 android:orientation="vertical"
                 android:layout_width="100dp"
-                android:layout_height="70dp">
+                android:layout_height="93dp">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -193,11 +206,23 @@
                     android:textStyle="bold"
                     android:text="@string/_0"
                     android:id="@+id/textShowCO"
-                    android:layout_below="@+id/textView35"
+                    android:layout_marginLeft="21dp"
+                    android:layout_marginStart="21dp"
+                    android:layout_centerVertical="true"
                     android:layout_alignParentLeft="true"
-                    android:layout_alignParentStart="true"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginStart="20dp" />
+                    android:layout_alignParentStart="true" />
+
+                <ImageView
+                    android:layout_width="10dp"
+                    android:layout_height="10dp"
+                    android:id="@+id/ringco"
+                    android:background="#1e7ad3"
+                    android:layout_marginLeft="23dp"
+                    android:layout_marginStart="23dp"
+                    android:layout_alignParentTop="true"
+                    android:layout_toRightOf="@+id/textView35"
+                    android:layout_toEndOf="@+id/textView35"
+                    android:layout_marginTop="3dp" />
 
             </RelativeLayout>
         </TableRow>
@@ -228,7 +253,7 @@
                     android:text="0"
                     android:textStyle="bold"
                     android:id="@+id/textShowHumidity"
-                    android:layout_below="@+id/textView38"
+                    android:layout_centerVertical="true"
                     android:layout_alignLeft="@+id/textView38"
                     android:layout_alignStart="@+id/textView38" />
 
@@ -236,7 +261,7 @@
 
             <RelativeLayout
                 android:layout_width="100dp"
-                android:layout_height="70dp">
+                android:layout_height="93dp">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -256,7 +281,8 @@
                     android:text="0"
                     android:textStyle="bold"
                     android:id="@+id/textShowPressure"
-                    android:layout_below="@+id/textView39"
+                    android:layout_centerVertical="true"
+                    android:layout_alignLeft="@+id/textView39"
                     android:layout_alignStart="@+id/textView39" />
 
             </RelativeLayout>
@@ -293,14 +319,26 @@
                     android:text="0"
                     android:id="@+id/textShowResLamp"
                     android:textStyle="bold"
-                    android:layout_below="@+id/texxtView444"
+                    android:layout_centerVertical="true"
                     android:layout_alignLeft="@+id/texxtView444"
                     android:layout_alignStart="@+id/texxtView444" />
+
+                <ImageView
+                    android:layout_width="10dp"
+                    android:layout_height="10dp"
+                    android:id="@+id/ringressurs"
+                    android:background="#000000"
+                    android:layout_alignBottom="@+id/texxtView444"
+                    android:layout_toRightOf="@+id/texxtView444"
+                    android:layout_toEndOf="@+id/texxtView444"
+                    android:layout_marginLeft="17dp"
+                    android:layout_marginStart="17dp" />
+
             </RelativeLayout>
 
             <RelativeLayout
                 android:layout_width="100dp"
-                android:layout_height="70dp">
+                android:layout_height="93dp">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -337,18 +375,46 @@
         android:background="#ffffff" />
 
     <RelativeLayout
-        android:layout_width="match_parent"
+        android:layout_width="1dp"
         android:layout_height="match_parent">
 
         <ImageView
             android:layout_width="290dp"
             android:layout_height="1dp"
-            android:id="@+id/imageView3"
+            android:id="@+id/line1"
             android:layout_marginTop="155dp"
             android:background="#ffffff"
             android:alpha="0.5"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true" />
+
+        <ImageView
+            android:layout_width="290dp"
+            android:layout_height="1dp"
+            android:id="@+id/line2"
+            android:layout_marginTop="92dp"
+            android:background="#ffffff"
+            android:alpha="0.5"
+            android:layout_below="@+id/line1"
+            android:layout_alignLeft="@+id/line1"
+            android:layout_alignStart="@+id/line1" />
+
+        <ImageView
+            android:layout_width="290dp"
+            android:layout_height="1dp"
+            android:id="@+id/line3"
+            android:layout_marginTop="90dp"
+            android:background="#ffffff"
+            android:alpha="0.5"
+            android:layout_below="@+id/line2"
+            android:layout_alignLeft="@+id/line2"
+            android:layout_alignStart="@+id/line2" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/imageView3" />
+
     </RelativeLayout>
 
 </RelativeLayout>

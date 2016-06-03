@@ -24,26 +24,11 @@ import java.util.concurrent.TimeUnit;
 //обновление данных с устройства
 public class ATupdateData extends AsyncTask<Void, Void, String> {
     JSONObject dataJsonObj;
-    /*  private TextView textViewShowHumidity;
-      private TextView serverErrorText;
-      private TextView textViewShowTemper;
-      private TextView textViewShowCO;
-      private TextView textViewShowCO2;
-      private TextView textViewPressure;
-      private ToggleButton onOffButton;*/
-    // private int jsonhave = 0;
     private String urlString;
-    String[] dataFromSensors = new String[6];
+    String[] dataFromSensors = new String[8];
     FragmentAdapter fragmentAdapter;
 
     public ATupdateData(String urlString, FragmentAdapter fragmentAdapter) {
-
-     /* this.textViewShowCO = textViewShowCO;
-        this.textViewShowCO2 = textViewShowCO2;
-        this.textViewPressure = textViewPressure;
-        this.textViewShowTemper = textViewShowTemper;
-        this.textViewShowHumidity = textViewShowHumidity;
-        this.onOffButton = onOffButton;*/
         this.urlString = urlString;
         this.fragmentAdapter = fragmentAdapter;
     }
@@ -69,37 +54,10 @@ public class ATupdateData extends AsyncTask<Void, Void, String> {
     protected void onPostExecute(String result) {
         super.onPostExecute(result);
         //fragmentAdapter.setInfomassAdapter(dataFromSensors);
-        if (fragmentAdapter.framentMass[0]!=null) {
+        if (fragmentAdapter.framentMass[0] != null) {
             fragmentAdapter.framentMass[0].fullTextviewData(dataFromSensors);
             fragmentAdapter.framentMass[1].fullTextviewData(dataFromSensors);
         }
-            // fragmentAdapter.setInfomassAdapter(dataFromSensors);
-
-        //      Log.d("MyLog", "jsonhave1 " + jsonhave);
-      /*  switch (jsonhave) {
-            case 0: {
-                textViewShowCO2.setText(dataFromSensors[0]);
-                textViewShowCO.setText(dataFromSensors[1]);
-                textViewShowTemper.setText(dataFromSensors[3]);
-                textViewShowHumidity.setText(dataFromSensors[5]);
-                textViewPressure.setText(dataFromSensors[4]);
-                onOffButton.setChecked(Boolean.valueOf(dataFromSensors[2]));
-                break;
-            }
-            case 1: {
-                textViewShowCO2.setText("0");
-                textViewShowCO.setText("0");
-                textViewShowTemper.setText("0");
-                textViewShowHumidity.setText("0");
-                textViewPressure.setText("0");
-                //вывод сообщения
-                //serverErrorText.setText("Ошибка1 подключения");
-                //serverErrorText.setVisibility(View.VISIBLE);
-                break;
-            }
-
-        }
-*/
 
     }
 
@@ -180,7 +138,7 @@ public class ATupdateData extends AsyncTask<Void, Void, String> {
             Log.d("MyLog", "not error in parsJson1 ");
             for (int i = 0; i < events.length(); i++) {
                 JSONObject jsonEvent = events.getJSONObject(i);
-                String co = "", co2 = "", onoff = "", temperature = "", humidity = "", pressure = "";
+                String co = "", co2 = "", onoff = "", temperature = "", humidity = "", pressure = "", lamp = "",cooler = "";
                 Iterator<String> iter = jsonEvent.keys();
                 while (iter.hasNext()) {
                     String key = iter.next();
@@ -204,6 +162,12 @@ public class ATupdateData extends AsyncTask<Void, Void, String> {
                         case "humidity":
                             humidity = jsonEvent.getString("humidity");
                             break;
+                        case "lamp":
+                            lamp = jsonEvent.getString("lamp");
+                            break;
+                        case "cooler":
+                            cooler = jsonEvent.getString("cooler");
+                            break;
 
                     }
                     //можно сократить напрямую в массив записывать без беспантовых переменных
@@ -213,6 +177,8 @@ public class ATupdateData extends AsyncTask<Void, Void, String> {
                     dataFromSensors[3] = temperature;
                     dataFromSensors[4] = pressure;
                     dataFromSensors[5] = humidity;
+                    dataFromSensors[6] = lamp;
+                    dataFromSensors[7] = cooler;
                     //    jsonhave = 0;
                 }
             }

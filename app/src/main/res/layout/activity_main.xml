@@ -56,6 +56,19 @@
                 android:textColor="@color/blueforradiobutton"
                 />
         </RadioGroup>
+
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:id="@+id/imageView4"
+            android:background="#ffffff"
+            android:src="@drawable/doctor_air_logo"
+            android:layout_marginRight="21dp"
+            android:layout_marginEnd="21dp"
+            android:layout_alignTop="@+id/toggle"
+            android:layout_toLeftOf="@+id/toggle"
+            android:layout_toStartOf="@+id/toggle"
+            android:layout_alignBottom="@+id/toggle" />
     </RelativeLayout>
 
     <android.support.v4.view.ViewPager

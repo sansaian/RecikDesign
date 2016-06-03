@@ -16,12 +16,10 @@ class FragmentAdapter extends FragmentPagerAdapter {
         super( fm);
     }
     FragmentInfo [] framentMass = new FragmentInfo[2];
-    //FragmentInfo fragment;
 
 
     @Override
     public Fragment getItem(int position) {
-        Log.d("Mylog", "getItem " + this.typeView);
         framentMass[position] =FragmentInfo.newInstance(position,typeView);
         framentMass[position].setInfomass(infomass);
         return framentMass[position];
@@ -29,16 +27,13 @@ class FragmentAdapter extends FragmentPagerAdapter {
 
     @Override
     public int getCount() {
-        //Log.d("Mylog", "getCount " + this.typeView);
         FragmentInfo.typeViewstatic = typeView;
-       // Log.d("Mylog", "getCount typeViewstatic " + this.typeView);
         return mCount;
     }
-
+/*
     public void setInfomassAdapter(String[] massfromAtData){
-
       this.infomass =  massfromAtData;
 
-    }
+    }*/
  }
 
