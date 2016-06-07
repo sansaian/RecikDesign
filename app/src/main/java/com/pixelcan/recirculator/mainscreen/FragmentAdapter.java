@@ -7,21 +7,21 @@ import android.util.Log;
 
 
 class FragmentAdapter extends FragmentPagerAdapter {
-    //protected static final String[] CONTENT = new String[]{"This", "Is", "A",};
 
     private int mCount = 2;//count page
-    private String [] infomass = {"1","1","1","1","1","1"};
+    //private String [] infomass = {"1","1","1","1","1","1"};
     public String typeView;
-    public FragmentAdapter(FragmentManager fm,String typeView) {
-        super( fm);
+
+    public FragmentAdapter(FragmentManager fm, String typeView) {
+        super(fm);
     }
-    FragmentInfo [] framentMass = new FragmentInfo[2];
+
+    FragmentInfo[] framentMass = new FragmentInfo[2];
 
 
     @Override
     public Fragment getItem(int position) {
-        framentMass[position] =FragmentInfo.newInstance(position,typeView);
-        framentMass[position].setInfomass(infomass);
+        framentMass[position] = FragmentInfo.newInstance(position, typeView);
         return framentMass[position];
     }
 
@@ -30,10 +30,5 @@ class FragmentAdapter extends FragmentPagerAdapter {
         FragmentInfo.typeViewstatic = typeView;
         return mCount;
     }
-/*
-    public void setInfomassAdapter(String[] massfromAtData){
-      this.infomass =  massfromAtData;
-
-    }*/
- }
+}
 

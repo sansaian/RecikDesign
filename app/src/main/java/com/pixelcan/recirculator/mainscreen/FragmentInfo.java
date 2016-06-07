@@ -22,19 +22,24 @@ import java.math.RoundingMode;
 
 public class FragmentInfo extends Fragment {
 
-    private TextView textViewShowHumidity, textViewShowTemper, textViewShowCO,textView34;
+    private TextView textViewShowHumidity, textViewShowTemper, textViewShowCO, textView34;
     public TextView textViewShowCO2, textViewPressure, textPointerOnRoom;
     private TextView textheAverage, textShowtemperondoor, textShowResLamp, textShowFun;
     private String typeView;
     static String typeViewstatic;
-    ImageView imageView,imageViewRingCO,imageViewRingCO2,imageViewResurceLamp;
+    ImageView imageView, imageViewRingCO, imageViewRingCO2, imageViewResurceLamp;
     private static final String KEY_CONTENT = "FragmentInfo:Content";
     static final String ARGUMENT_PAGE_NUMBER = "arg_page_number";
-    public String[] infomass;
+    private int[] stateModesMass = {-1, 0};
     ListView lvMain;
 
-    public void setInfomass(String[] infomass) {
-        this.infomass = infomass;
+    public void stateModesMass(String onOff, String mode) {
+        // Log.d("MyLog1", "error" + onOff);
+        if (onOff!=null && !onOff.isEmpty()) {
+            if (onOff.equals("true")) this.stateModesMass[0] = 1;
+            else this.stateModesMass[0] = 0;
+            this.stateModesMass[1] = Integer.parseInt(mode);
+        }
     }
 
     public static FragmentInfo newInstance(int content, String typeView) {
@@ -98,8 +103,12 @@ public class FragmentInfo extends Fragment {
                         ((MainActivity) getActivity()).mainsendcomand(position);
                         // Log.d("MyList", "itemClick: position = " + position + ", id = "
                         //         + id);
+
                     }
                 });
+
+                setfullstatemode();
+
                 break;
             case "data":
                 v = inflater.inflate(R.layout.testinterface5, container, false);
@@ -109,7 +118,7 @@ public class FragmentInfo extends Fragment {
                 textViewShowCO = (TextView) v.findViewById(R.id.textShowCO);
                 textViewShowCO2 = (TextView) v.findViewById(R.id.textShowCO2);
                 textView34 = (TextView) v.findViewById(R.id.textView34);
-                textView34.setText("Уровень CO"+(char)0x00B2 );
+                textView34.setText("Уровень CO" + (char) 0x00B2);
                 textPointerOnRoom = (TextView) v.findViewById(R.id.textPointerOnRoom);
                 textViewPressure = (TextView) v.findViewById(R.id.textShowPressure);
                 textShowtemperondoor = (TextView) v.findViewById(R.id.textShowtemperondoor);
@@ -131,7 +140,7 @@ public class FragmentInfo extends Fragment {
 
     //отрисовка экрана с информацией с датчиками
     private void setDrawableforScreenData() {
-        int ringID=0,ringIDbottom=0;
+        int ringID = 0, ringIDbottom = 0;
         switch (numberpage) {
             case "0":
                 imageView.setImageResource(R.drawable.shape1);
@@ -152,31 +161,32 @@ public class FragmentInfo extends Fragment {
         imageViewRingCO.setImageResource(ringID);
         imageViewRingCO2.setImageResource(ringID);
         imageViewResurceLamp.setImageResource(ringIDbottom);
-       // imageViewRingCO.setBackgroundColor (Color.parseColor("#FF48CF12"));
-
-       // imageViewRingCO2.setBackgroundColor (Color.parseColor("#FF48CF12"));
-       // imageViewResurceLamp.setBackgroundColor(Color.parseColor("#FFE91A1A"));
-        // imageView.setImageResource(R.drawable.shape1);
     }
 
-    private void drowRing (String cO2,String resLamp,double doubleCO){
+    private void drowRing(String cO2, String resLamp, double doubleCO) {
 
-        if(doubleCO<40.0) imageViewRingCO.setBackgroundColor (Color.parseColor("#FF48CF12"));
-        else if(doubleCO>=40.0&&doubleCO<=75) imageViewRingCO.setBackgroundColor (Color.parseColor("#FFFFF30E"));
-        else imageViewRingCO.setBackgroundColor (Color.parseColor("#FFEA0A0A"));
-
-        double doubleCO2 = new BigDecimal((Double.parseDouble(cO2))).setScale(1, RoundingMode.UP).doubleValue();
-        if(doubleCO2<40.0) imageViewRingCO2.setBackgroundColor (Color.parseColor("#FF48CF12"));
-        else if(doubleCO2>=40.0&&doubleCO2<=75) imageViewRingCO2.setBackgroundColor (Color.parseColor("#FFFFF30E"));
-        else imageViewRingCO2.setBackgroundColor (Color.parseColor("#FFEA0A0A"));
-        textViewShowCO2.setText(doubleCO2 + " %");
-
+        if (doubleCO < 40.0) imageViewRingCO.setBackgroundColor(Color.parseColor("#FF48CF12"));
+        else if (doubleCO >= 40.0 && doubleCO <= 75)
+            imageViewRingCO.setBackgroundColor(Color.parseColor("#FFFFF30E"));
+        else imageViewRingCO.setBackgroundColor(Color.parseColor("#FFEA0A0A"));
+        if (cO2 != null && !cO2.isEmpty()) {
+            double doubleCO2 = new BigDecimal((Double.parseDouble(cO2))).setScale(1, RoundingMode.UP).doubleValue();
+            if (doubleCO2 < 800.0)
+                imageViewRingCO2.setBackgroundColor(Color.parseColor("#FF48CF12"));
+            else if (doubleCO2 >= 800.0 && doubleCO2 <= 1000.0)
+                imageViewRingCO2.setBackgroundColor(Color.parseColor("#FFFFF30E"));
+            else imageViewRingCO2.setBackgroundColor(Color.parseColor("#FFEA0A0A"));
+            textViewShowCO2.setText(doubleCO2 + " ppm");
+        }
+        if (resLamp != null && !resLamp.isEmpty()) {
         double doubleresLamp = new BigDecimal((Double.parseDouble(resLamp))).setScale(1, RoundingMode.UP).doubleValue();
-        if(doubleresLamp>6000) imageViewResurceLamp.setBackgroundColor (Color.parseColor("#FF48CF12"));
-        else if(doubleresLamp>=2000&&doubleresLamp<=6000) imageViewResurceLamp.setBackgroundColor (Color.parseColor("#FFFFF30E"));
-        else imageViewResurceLamp.setBackgroundColor (Color.parseColor("#FFEA0A0A"));
+        if (doubleresLamp > 6000)
+            imageViewResurceLamp.setBackgroundColor(Color.parseColor("#FF48CF12"));
+        else if (doubleresLamp >= 2000 && doubleresLamp <= 6000)
+            imageViewResurceLamp.setBackgroundColor(Color.parseColor("#FFFFF30E"));
+        else imageViewResurceLamp.setBackgroundColor(Color.parseColor("#FFEA0A0A"));
         textShowResLamp.setText(doubleresLamp + " hr");
-    }
+    }}
 
     private void setDrawableforScreenCommand() {
         switch (numberpage) {
@@ -199,35 +209,52 @@ public class FragmentInfo extends Fragment {
         super.onSaveInstanceState(outState);
         outState.putString(KEY_CONTENT, numberpage);
     }
-//проблема с обрезаемыми значениями
+
+    public void setfullstatemode() {
+        if (lvMain != null && stateModesMass[0] != -1) {
+            int position;
+            if (stateModesMass[0] == 0) position = 0;
+            else position = stateModesMass[1];
+            lvMain.performItemClick(lvMain.getAdapter().
+                    getView(2, null, null), position, lvMain.getAdapter().
+                    getItemId(2));
+        }
+    }
+
     public void fullTextviewData(String[] data) {
-        double doubleCO=0;
+        if(data[3]!=null&&data[5]!=null&&data[7]!=null){
+        double doubleCO = 0;
         if (textViewShowCO2 != null) {
-           // textViewShowCO2.setText(data[0] + " %");
 
             doubleCO = translateCO(data[1]);
 
-            textViewShowCO.setText(doubleCO + " %");//сразу обрезано
+            textViewShowCO.setText(doubleCO + " ppm");//сразу обрезано
             textShowtemperondoor.setText("18" + " " + (char) 0x00B0);
             textViewShowTemper.setText(data[3] + " " + (char) 0x00B0);
             textViewPressure.setText(translatePaskalTommhg(data[4]) + " mmHg");
             textViewShowHumidity.setText(data[5] + " %");
-           // textShowResLamp.setText(data[6].substring(0,5) + " hr");
+            // textShowResLamp.setText(data[6].substring(0,5) + " hr");
             textShowFun.setText(data[7] + " rpm");
 
-            drowRing(data[0],data[6],doubleCO);
+            drowRing(data[0], data[6], doubleCO);
         }
-    }
-    private int translatePaskalTommhg (String paskal)
-    {
-        int mmHg = (int) (Double.parseDouble(paskal) / 133.3224);
 
+    }}
+
+    private int translatePaskalTommhg(String paskal) {
+        int mmHg = 0;
+        if (paskal != null && !paskal.isEmpty()) {
+            mmHg = (int) (Double.parseDouble(paskal));
+        }
         return mmHg;
     }
-    private double translateCO (String co)
-    {
 
-        double coDouble = new BigDecimal(((1-(Double.parseDouble(co)))*100)).setScale(2, RoundingMode.UP).doubleValue();
+    private double translateCO(String co) {
+        double coDouble = 0.0;
+        if (co != null && !co.isEmpty()) {
+            coDouble = new BigDecimal(Double.parseDouble(co)).setScale(2, RoundingMode.UP).doubleValue();
+
+        }
         return coDouble;
     }
 }

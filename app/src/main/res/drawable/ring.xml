@@ -6,7 +6,7 @@
     android:thicknessRatio="1"
     android:useLevel="false">
     <solid
-        android:color="#1e7bd3">
+        android:color="#1e7ad3">
     </solid>
     <size
         android:height="10dp"

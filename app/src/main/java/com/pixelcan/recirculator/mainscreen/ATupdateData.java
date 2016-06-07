@@ -25,7 +25,7 @@ import java.util.concurrent.TimeUnit;
 public class ATupdateData extends AsyncTask<Void, Void, String> {
     JSONObject dataJsonObj;
     private String urlString;
-    String[] dataFromSensors = new String[8];
+    String[] dataFromSensors = new String[9];
     FragmentAdapter fragmentAdapter;
 
     public ATupdateData(String urlString, FragmentAdapter fragmentAdapter) {
@@ -56,7 +56,11 @@ public class ATupdateData extends AsyncTask<Void, Void, String> {
         //fragmentAdapter.setInfomassAdapter(dataFromSensors);
         if (fragmentAdapter.framentMass[0] != null) {
             fragmentAdapter.framentMass[0].fullTextviewData(dataFromSensors);
+            Log.d("MyLog1","dataFromSensors[2] "+dataFromSensors[2]);
+            fragmentAdapter.framentMass[0].stateModesMass(dataFromSensors[2],dataFromSensors[8]);
             fragmentAdapter.framentMass[1].fullTextviewData(dataFromSensors);
+            fragmentAdapter.framentMass[1].stateModesMass(dataFromSensors[2],dataFromSensors[8]);
+
         }
 
     }
@@ -138,7 +142,7 @@ public class ATupdateData extends AsyncTask<Void, Void, String> {
             Log.d("MyLog", "not error in parsJson1 ");
             for (int i = 0; i < events.length(); i++) {
                 JSONObject jsonEvent = events.getJSONObject(i);
-                String co = "", co2 = "", onoff = "", temperature = "", humidity = "", pressure = "", lamp = "",cooler = "";
+                String co = "", co2 = "", onoff = "", temperature = "", humidity = "", pressure = "", lamp = "",cooler = "",mode="";
                 Iterator<String> iter = jsonEvent.keys();
                 while (iter.hasNext()) {
                     String key = iter.next();
@@ -168,6 +172,9 @@ public class ATupdateData extends AsyncTask<Void, Void, String> {
                         case "cooler":
                             cooler = jsonEvent.getString("cooler");
                             break;
+                        case "mode":
+                            mode = jsonEvent.getString("mode");
+                            break;
 
                     }
                     //можно сократить напрямую в массив записывать без беспантовых переменных
@@ -179,7 +186,7 @@ public class ATupdateData extends AsyncTask<Void, Void, String> {
                     dataFromSensors[5] = humidity;
                     dataFromSensors[6] = lamp;
                     dataFromSensors[7] = cooler;
-                    //    jsonhave = 0;
+                    dataFromSensors[8] = mode;
                 }
             }
         } catch (Exception e) {

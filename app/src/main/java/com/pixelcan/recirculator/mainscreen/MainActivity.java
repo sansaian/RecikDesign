@@ -82,6 +82,7 @@ public class MainActivity extends AppCompatActivity {
     public void callAsynchronousTask() {
 
         final String url = "https://doctorair.tk/commands/account_info_12QfBKI5wQ";
+        //final String url = "https://doctorair.tk/commands/account_request_12QfBKI5wQ_%7B%22off%22:0,%22mode%22:1,%22mode_param%22:%22%22%7D";
         final Handler handler = new Handler();
         Timer timer = new Timer();
         TimerTask doAsynchronousTask = new TimerTask() {

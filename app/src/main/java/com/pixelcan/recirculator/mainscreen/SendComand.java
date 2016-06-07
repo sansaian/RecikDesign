@@ -10,35 +10,32 @@ import android.widget.ToggleButton;
  */
 public class SendComand {
 
-   int idposition;
+    int idposition;
     FragmentAdapter madapter;
 
-    public SendComand(int idposition,FragmentAdapter madapter) {
+    public SendComand(int idposition, FragmentAdapter madapter) {
         this.idposition = idposition;
         this.madapter = madapter;
     }
-
-   private String getURLString() {
+    //формирует URL
+    private String getURLString() {
 
         String switchonof;
-        if (idposition!=0) {
+        if (idposition != 0) {
             switchonof = "1";
         } else {
             switchonof = "0";
             idposition++;
         }
 
-        //формирует URL
-
-       String url = "https://doctorair.tk/commands/account_request_12QfBKI5wQ_{\"on\":"+switchonof+",\"mode\":"+idposition+",\"mode_param\":\"\"}";
-        Log.d("MyLog","switchonof "+switchonof);
+        String url = "https://doctorair.tk/commands/account_request_12QfBKI5wQ_{\"on\":" + switchonof + ",\"mode\":" + idposition + ",\"mode_param\":\"\"}";
+        Log.d("MyLog", "switchonof " + switchonof);
         return url;
     }
+//вызывет ATdateData и передает свой url
+    public void sendComandonServer() {
 
-    public void sendComandonServer()
-    {
-
-      ATupdateData atUpdateData = new ATupdateData(getURLString(),madapter );
+        ATupdateData atUpdateData = new ATupdateData(getURLString(), madapter);
         atUpdateData.execute();
     }
 
