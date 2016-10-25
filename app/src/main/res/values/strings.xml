@@ -3,14 +3,18 @@
     <string name="_0">0</string>
     <string name="modes">modes</string>
     <string name="data">data</string>
+
     <string-array name="names">
         <item>Выключен</item>
-        <item>В отпуск</item>
-        <item>Профилактика дома</item>
-        <item>Дома карантин</item>
-        <item>Встречаем гостей</item>
-        <item>Интеллектуальный</item>
-        <item>Включен постоянно</item>
-        <item>Свое расписание</item>
+        <item>Включен всегда</item>
+        <item>Семья в отпуске</item>
+        <item>Профилактика в доме</item>
+        <item>Дома есть больной</item>
+        <item>Гости в доме</item>
+        <item>Интелектуальный</item>
+        <item>Дома могут заболеть</item>
     </string-array>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

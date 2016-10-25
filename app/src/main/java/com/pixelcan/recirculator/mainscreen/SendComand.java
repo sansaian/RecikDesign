@@ -23,12 +23,13 @@ public class SendComand {
         String switchonof;
         if (idposition != 0) {
             switchonof = "1";
+            //idposition--;
         } else {
             switchonof = "0";
             idposition++;
         }
 
-        String url = "https://doctorair.tk/commands/account_request_12QfBKI5wQ_{\"on\":" + switchonof + ",\"mode\":" + idposition + ",\"mode_param\":\"\"}";
+        String url = "https://doctorair.tk/commands/account_request_937126143_{\"on\":" + switchonof + ",\"mode\":" + idposition + ",\"mode_param\":\"\"}";
         Log.d("MyLog", "switchonof " + switchonof);
         return url;
     }

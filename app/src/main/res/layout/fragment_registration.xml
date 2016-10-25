@@ -1,0 +1,153 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.pixelcan.recirculator.mainscreen.autorization.FragmentRegistration">
+
+    <!-- TODO: Update blank fragment layout -->
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="@string/hello_blank_fragment"
+        android:layout_gravity="center" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#FFFFFFFF"
+        android:layout_gravity="center_horizontal|top">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Логин"
+            android:id="@+id/textView"
+            android:textColor="#0086ff"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Имя"
+            android:id="@+id/textView2"
+            android:textColor="#0086ff"
+            android:layout_below="@+id/edTexLogin"
+            android:layout_centerHorizontal="true" />
+
+        <EditText
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/edTexName"
+            android:backgroundTint="#0086ff"
+            android:layout_below="@+id/textView2"
+            android:layout_centerHorizontal="true"
+            android:textColor="#0086ff" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Фамилия"
+            android:id="@+id/textView3"
+            android:textColor="#0086ff"
+            android:layout_below="@+id/edTexName"
+            android:layout_centerHorizontal="true" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Телефон"
+            android:id="@+id/textView4"
+            android:textColor="#0086ff"
+            android:layout_below="@+id/edTexSurName"
+            android:layout_centerHorizontal="true" />
+
+        <EditText
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:inputType="phone"
+            android:ems="10"
+            android:backgroundTint="#0086ff"
+            android:id="@+id/edTexPhone"
+            android:layout_below="@+id/textView4"
+            android:layout_centerHorizontal="true"
+            android:textColor="#0086ff" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Пароль"
+            android:id="@+id/textView5"
+            android:textColor="#0086ff"
+            android:layout_below="@+id/edTexPhone"
+            android:layout_centerHorizontal="true" />
+
+        <EditText
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:inputType="textPassword"
+            android:backgroundTint="#0086ff"
+            android:ems="10"
+            android:id="@+id/edTexPasw"
+            android:layout_below="@+id/textView5"
+            android:layout_centerHorizontal="true"
+            android:textColor="#0086ff" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Пароль(Повтор)"
+            android:id="@+id/textView6"
+            android:textColor="#0086ff"
+            android:layout_below="@+id/edTexPasw"
+            android:layout_centerHorizontal="true" />
+
+        <EditText
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:inputType="textPassword"
+            android:backgroundTint="#0086ff"
+            android:ems="10"
+            android:id="@+id/edTexPaswRep"
+            android:layout_below="@+id/textView6"
+            android:layout_alignEnd="@+id/edTexPasw"
+            android:textColor="#0086ff" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="#0086ff"
+            android:text="Принять"
+            android:id="@+id/btnAccept"
+            android:layout_below="@+id/edTexPaswRep"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="43dp" />
+
+        <EditText
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/edTexLogin"
+            android:backgroundTint="#0086ff"
+            android:layout_below="@+id/textView"
+            android:layout_alignStart="@+id/edTexName"
+            android:textColor="#0086ff" />
+
+        <EditText
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/edTexSurName"
+            android:backgroundTint="#0086ff"
+            android:layout_below="@+id/textView3"
+            android:layout_alignStart="@+id/edTexName"
+            android:textColor="#0086ff" />
+
+    </RelativeLayout>
+
+</FrameLayout>

@@ -1,0 +1,60 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.pixelcan.recirculator.mainscreen.autorization.FragmentAutorization">
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:background="#FFFFFFFF"
+        android:layout_gravity="right|center_vertical">
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="textPersonName"
+            android:text="Name"
+            android:ems="10"
+            android:id="@+id/edTxLogin"
+            android:layout_marginTop="137dp"
+            android:backgroundTint="#0086ff"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:textColor="#0086ff" />
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="textPassword"
+            android:ems="10"
+            android:id="@+id/edTxPasw"
+            android:layout_below="@+id/edTxLogin"
+            android:layout_alignStart="@+id/edTxLogin"
+            android:layout_marginTop="29dp"
+            android:text="Pasword"
+            android:backgroundTint="#0086ff"
+            android:textColor="#0086ff" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Вход"
+            android:id="@+id/btnEnter"
+            android:background="#0086ff"
+            android:layout_below="@+id/edTxPasw"
+            android:layout_alignStart="@+id/edTxPasw"
+            android:layout_marginTop="46dp" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Регистрация"
+            android:id="@+id/btnRegistration"
+            android:background="#0086ff"
+            android:layout_alignTop="@+id/btnEnter"
+            android:layout_alignEnd="@+id/edTxPasw" />
+
+    </RelativeLayout>
+
+</FrameLayout>

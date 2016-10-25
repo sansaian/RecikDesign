@@ -34,12 +34,14 @@ public class FragmentInfo extends Fragment {
     ListView lvMain;
 
     public void stateModesMass(String onOff, String mode) {
-        // Log.d("MyLog1", "error" + onOff);
+         Log.d("MyLog1", "onOff" + onOff);
+        Log.d("MyLog1", "mode " + mode);
         if (onOff!=null && !onOff.isEmpty()) {
             if (onOff.equals("true")) this.stateModesMass[0] = 1;
             else this.stateModesMass[0] = 0;
             this.stateModesMass[1] = Integer.parseInt(mode);
         }
+        //if(lvMain!=null)setfullstatemode();
     }
 
     public static FragmentInfo newInstance(int content, String typeView) {
@@ -175,9 +177,11 @@ public class FragmentInfo extends Fragment {
                 imageViewRingCO2.setBackgroundColor(Color.parseColor("#FF48CF12"));
             else if (doubleCO2 >= 800.0 && doubleCO2 <= 1000.0)
                 imageViewRingCO2.setBackgroundColor(Color.parseColor("#FFFFF30E"));
-            else imageViewRingCO2.setBackgroundColor(Color.parseColor("#FFEA0A0A"));
-            textViewShowCO2.setText(doubleCO2 + " ppm");
-        }
+            else { imageViewRingCO2.setBackgroundColor(Color.parseColor("#FFEA0A0A"));
+                if(doubleCO2>0.0) {
+                    textViewShowCO2.setText(doubleCO2 + " ppm");
+                }else textViewShowCO2.setText("N/A");
+        }}
         if (resLamp != null && !resLamp.isEmpty()) {
         double doubleresLamp = new BigDecimal((Double.parseDouble(resLamp))).setScale(1, RoundingMode.UP).doubleValue();
         if (doubleresLamp > 6000)
@@ -227,10 +231,12 @@ public class FragmentInfo extends Fragment {
         if (textViewShowCO2 != null) {
 
             doubleCO = translateCO(data[1]);
+            if (doubleCO>0.0) {
+                textViewShowCO.setText(doubleCO + " ppm");//сразу обрезано
+            }else textViewShowCO.setText("N/A");
+                textShowtemperondoor.setText("18" + " " + (char) 0x00B0);
 
-            textViewShowCO.setText(doubleCO + " ppm");//сразу обрезано
-            textShowtemperondoor.setText("18" + " " + (char) 0x00B0);
-            textViewShowTemper.setText(data[3] + " " + (char) 0x00B0);
+                textViewShowTemper.setText(data[3] + " " + (char) 0x00B0);
             textViewPressure.setText(translatePaskalTommhg(data[4]) + " mmHg");
             textViewShowHumidity.setText(data[5] + " %");
             // textShowResLamp.setText(data[6].substring(0,5) + " hr");
