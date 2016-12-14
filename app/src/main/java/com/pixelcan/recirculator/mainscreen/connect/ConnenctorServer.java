@@ -93,7 +93,14 @@ public class ConnenctorServer extends AsyncTask<String, Void, String> {
          */
         ParserJSON parserJson = new ParserJSON();
         try {
-            parserJson.getDatafterRegistration( getJsonObject());
+            switch (comand){
+                case 1://парсить ответ после попытки авторизации
+                    parserJson.getDatafterRegistration( getJsonObject());
+                    break;
+
+
+            }
+
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -116,7 +123,6 @@ public class ConnenctorServer extends AsyncTask<String, Void, String> {
      * @return возвращает необходимый Url как класс
      */
     private URL getUrl(int comand) {
-       // Log.d(forLogError,"comand" +comand);
         String urlString = "";
         switch (comand) {
             case 1://get-запрос для регистрации
@@ -126,11 +132,12 @@ public class ConnenctorServer extends AsyncTask<String, Void, String> {
                 break;
             case 2:// get-запрос для авторизации
                 urlString = "https://doctorair.tk/getlistdevice/"+this.login+"_"+this.password;
-                //!!!!для примера!!!!!!
                 urlString = null;
                 break;
             case 3: //get-запрос для считывания инфы с датчиков
-                urlString = "https://doctorair.tk/commands/account_info_12QfBKI5wQ";
+                urlString = "https://doctorair.tk/commands/account_info_937126143";
+//                urlString = "https://doctorair.tk/commands/account_info_12QfBKI5wQ";
+
                 break;
             default:
                 Log.d(forLogError, "неверная команда");
@@ -179,7 +186,6 @@ public class ConnenctorServer extends AsyncTask<String, Void, String> {
                 sleep();
             }
             ///сообщить пользователю  том что проблемы с сервером
-            // может стоит сделать определенное количество повторений потом сообщать что пиздец
             //проблема когда ушли в сон он не останавливается.
         }
         while (resultJson.isEmpty() && repetitionCount > 6);

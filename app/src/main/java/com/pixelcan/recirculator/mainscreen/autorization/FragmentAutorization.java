@@ -96,7 +96,7 @@ public class FragmentAutorization extends Fragment {
 
 
     /**
-     * Метод для проверки введеных данных
+     * Метод для проверки введеных данных пароли сохраняются на устройстве
      */
     private boolean chekedUser() {
         boolean checkUser = false;
@@ -105,7 +105,7 @@ public class FragmentAutorization extends Fragment {
         String password = edTxPasw.getText().toString();
         if (login.equals(identifmass[0]) && password.equals(identifmass[1])){
             checkUser = true;}
-        Toast.makeText(getActivity(), "Text loaded"+identifmass[0]+"//asdasdasdad//"+identifmass[1], Toast.LENGTH_SHORT).show();
+//        Toast.makeText(getActivity(), "Text loaded"+identifmass[0]+"//asdasdasdad//"+identifmass[1], Toast.LENGTH_SHORT).show();
         return checkUser;
     }
 

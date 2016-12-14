@@ -8,8 +8,10 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.Toast;
 
 import com.pixelcan.inkpageindicator.InkPageIndicator;
 import com.pixelcan.recirculator.R;
@@ -34,6 +36,7 @@ public class MainActivity extends AppCompatActivity {
     Button buttondatainfo;
     RadioGroup radiogroup1;
     String typeView;
+    ImageButton addRecirculatorButton;
     View.OnClickListener radioListener;
 
     @Override
@@ -43,7 +46,13 @@ public class MainActivity extends AppCompatActivity {
         //???
         mAdapter = new FragmentAdapter(getSupportFragmentManager(), typeView);
         mPager = (ViewPager) findViewById(R.id.pager);
-
+        addRecirculatorButton = (ImageButton) findViewById(R.id.imageButton);
+       View.OnClickListener addRecirculatorListener = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText( getApplicationContext(),"Кнопка нажата",Toast.LENGTH_SHORT).show();
+            }};
+        addRecirculatorButton.setOnClickListener(addRecirculatorListener);
         mIndicator = (InkPageIndicator) findViewById(R.id.indicator);
         changeFrame(R.string.modes);
         radiogroup1 = (RadioGroup) findViewById(R.id.radiogroup1);

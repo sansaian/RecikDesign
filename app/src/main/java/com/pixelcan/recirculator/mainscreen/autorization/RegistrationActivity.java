@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.widget.Toast;
 
 import com.pixelcan.recirculator.R;
 import com.pixelcan.recirculator.mainscreen.MainActivity;
@@ -48,6 +47,9 @@ public class RegistrationActivity extends AppCompatActivity {
         fTrans.commit();
     }
 
+    /**
+     * Переход на основной экран приложения из авторизации или регистрации
+     */
     public void goToMainActivity() {
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
@@ -65,7 +67,7 @@ public class RegistrationActivity extends AppCompatActivity {
         sPref = getPreferences(MODE_PRIVATE);
          massidentif[0]  = sPref.getString("login", "");
         massidentif[1]  = sPref.getString("password", "");
-        Toast.makeText(this, "Text loaded"+massidentif[0]+"////"+massidentif[1], Toast.LENGTH_SHORT).show();
+//        Toast.makeText(this, "Text loaded"+massidentif[0]+"////"+massidentif[1], Toast.LENGTH_SHORT).show();
         return massidentif;
     }
 }

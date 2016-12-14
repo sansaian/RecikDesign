@@ -2,73 +2,87 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
+    android:orientation="vertical"
     tools:context=".mainscreen.MainActivity">
 
     <RelativeLayout
-        android:orientation="vertical"
+        android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:background="#ffffff"
-        android:id="@+id/linearLayout"
-        android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true">
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:background="#ffffff"
+        android:orientation="vertical">
+
         <RadioGroup
-            android:checkedButton="@+id/radiogroup1"
             android:id="@+id/toggle"
             android:layout_width="200dp"
             android:layout_height="30dp"
-            android:background="@drawable/out_line"
-            android:orientation="horizontal"
+            android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
-            android:layout_centerHorizontal="true">
+            android:background="@drawable/out_line"
+            android:checkedButton="@+id/radiogroup1"
+            android:orientation="horizontal">
 
             <RadioButton
-                android:layout_marginTop="1dp"
-                android:layout_marginBottom="1dp"
-                android:layout_marginLeft="1dp"
                 android:id="@+id/modes"
-                android:background="@drawable/toggle_widget_background"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
+                android:layout_marginBottom="1dp"
+                android:layout_marginLeft="1dp"
+                android:layout_marginTop="1dp"
                 android:layout_weight="1"
+                android:background="@drawable/toggle_widget_background"
                 android:button="@null"
+                android:checked="true"
                 android:gravity="center"
                 android:text="Режимы"
-                android:textColor="#FFFFFFFF"
-                android:checked="true"/>
+                android:textColor="#FFFFFFFF" />
 
             <RadioButton
-                android:layout_marginRight="1dp"
-                android:layout_marginTop="1dp"
-                android:layout_marginBottom="1dp"
                 android:id="@+id/infodata"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
+                android:layout_marginBottom="1dp"
+                android:layout_marginRight="1dp"
+                android:layout_marginTop="1dp"
                 android:layout_weight="1"
                 android:background="@drawable/toggle_widget_background"
                 android:button="@null"
                 android:gravity="center"
                 android:text="Показатели"
-                android:textColor="@color/blueforradiobutton"
-                />
+                android:textColor="@color/blueforradiobutton" />
         </RadioGroup>
 
-        <ImageView
+        <!--<ImageView-->
+        <!--android:layout_width="50dp"-->
+        <!--android:layout_height="50dp"-->
+        <!--android:id="@+id/imageView4"-->
+        <!--android:background="#ffffff"-->
+        <!--android:src="@drawable/doctor_air_logo"-->
+        <!--android:layout_marginRight="21dp"-->
+        <!--android:layout_marginEnd="21dp"-->
+        <!--android:layout_alignTop="@+id/toggle"-->
+        <!--android:layout_toLeftOf="@+id/toggle"-->
+        <!--android:layout_toStartOf="@+id/toggle"-->
+        <!--android:layout_alignBottom="@+id/toggle" />-->
+
+        <ImageButton
+            android:id="@+id/imageButton"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:id="@+id/imageView4"
-            android:background="#ffffff"
-            android:src="@drawable/doctor_air_logo"
-            android:layout_marginRight="21dp"
-            android:layout_marginEnd="21dp"
+            android:layout_alignBottom="@+id/toggle"
+            android:layout_alignParentBottom="true"
             android:layout_alignTop="@+id/toggle"
+            android:layout_marginEnd="21dp"
+            android:layout_marginRight="21dp"
             android:layout_toLeftOf="@+id/toggle"
             android:layout_toStartOf="@+id/toggle"
-            android:layout_alignBottom="@+id/toggle" />
+            android:background="#ffffff"
+            app:srcCompat="@drawable/doctor_air_logo" />
     </RelativeLayout>
 
     <android.support.v4.view.ViewPager
@@ -76,16 +90,17 @@
         android:layout_width="fill_parent"
         android:layout_height="440dp"
         android:layout_weight="0.48"
-       android:background="#ffffff" />
+        android:background="#ffffff" />
+
     <com.pixelcan.inkpageindicator.InkPageIndicator
         android:id="@+id/indicator"
-        android:padding="10dip"
-        android:layout_height="wrap_content"
         android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="#ffffff"
+        android:padding="10dip"
+        app:animationDuration="320"
+        app:currentPageIndicatorColor="@android:color/black"
         app:dotDiameter="8dp"
         app:dotGap="8dp"
-        app:animationDuration="320"
-        app:pageIndicatorColor="@android:color/darker_gray"
-        app:currentPageIndicatorColor="@android:color/black"
-        android:background="#ffffff" />
+        app:pageIndicatorColor="@android:color/darker_gray" />
 </LinearLayout>
