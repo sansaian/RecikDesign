@@ -87,6 +87,12 @@ public class ParserJSON {
         return dataFromSensors;
     }
 
+    /**
+     * ПРОВЕРИТЬ ЛОГИКУ НИ КАК НЕ ОБРАБАТЫВАЮТСЯ ОШИБКИ
+     * @param dataJsonObj
+     * @return
+     * @throws JSONException
+     */
     public String getDatafterRegistration(JSONObject dataJsonObj) throws JSONException {
         String errorJson = "";
         if (dataJsonObj != null) {
@@ -105,5 +111,22 @@ public class ParserJSON {
         return errorJson;
     }
 
+    public boolean getDataforAutorization(JSONObject jsonObject) {
+        //проверка прошел ли процедуру регистрации
+        boolean rezult = false;
+        if (jsonObject != null) {
+            try {
+                rezult = !jsonObject.get("exception").toString().contains("UserAccount matching query does not exist");
+                Log.d(forLogTrace, "JSON после регистрации" + jsonObject.get("exception").toString());
+            } catch (JSONException e) {
+                Log.d(forLogError, "ошибка не верный json ");
+            }
+
+        } else {
+            Log.d(forLogError, "пустой json ");
+            /////вывести сообщение пользователю
         }
+        return rezult;
+    }
+}
 

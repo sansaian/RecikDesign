@@ -2,10 +2,10 @@ package com.pixelcan.recirculator.mainscreen;
 
 
 import android.os.AsyncTask;
-import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.widget.TextView;
-import android.widget.ToggleButton;
+
+import com.pixelcan.recirculator.mainscreen.untils.ParserJSON;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -27,11 +27,19 @@ public class ATupdateData extends AsyncTask<Void, Void, String> {
     private String urlString;
     String[] dataFromSensors = new String[9];
     FragmentAdapter fragmentAdapter;
+    AppCompatActivity activity;
+    ParserJSON parser = new ParserJSON();
+
+    public ATupdateData(AppCompatActivity activity, FragmentAdapter fragmentAdapter) {
+        this.fragmentAdapter = fragmentAdapter;
+        this.activity = activity;
+    }
 
     public ATupdateData(String urlString, FragmentAdapter fragmentAdapter) {
         this.urlString = urlString;
         this.fragmentAdapter = fragmentAdapter;
     }
+
 
     protected void onPreExecute() {
         super.onPreExecute();
@@ -42,7 +50,7 @@ public class ATupdateData extends AsyncTask<Void, Void, String> {
     protected String doInBackground(Void... params) {
         //   jsonhave = 0;
         try {
-            parsJson(getJsonObject());
+            parser.getDataFromSensor(getJsonObject());
         } catch (JSONException e) {
             Log.d("MyLog", "проблема распарсить JSON ");
             //    jsonhave = 1;
@@ -56,33 +64,41 @@ public class ATupdateData extends AsyncTask<Void, Void, String> {
         //fragmentAdapter.setInfomassAdapter(dataFromSensors);
         if (fragmentAdapter.framentMass[0] != null) {
             fragmentAdapter.framentMass[0].fullTextviewData(dataFromSensors);
-            Log.d("MyLog1","dataFromSensors[2] "+dataFromSensors[2]);
-            fragmentAdapter.framentMass[0].stateModesMass(dataFromSensors[2],dataFromSensors[8]);
+            Log.d("MyLog1", "dataFromSensors[2] " + dataFromSensors[2]);
+            fragmentAdapter.framentMass[0].stateModesMass(dataFromSensors[2], dataFromSensors[8]);
             fragmentAdapter.framentMass[1].fullTextviewData(dataFromSensors);
-            fragmentAdapter.framentMass[1].stateModesMass(dataFromSensors[2],dataFromSensors[8]);
+            fragmentAdapter.framentMass[1].stateModesMass(dataFromSensors[2], dataFromSensors[8]);
 
         }
 
     }
 
+    private URL buildURL() {
+        String idDevice = ((MainActivity) this.activity).getIdDevice();
+        if(idDevice==null)idDevice="937126143";
+        URL url = null;
+        this.urlString = "https://doctorair.tk/commands/account_info_" + idDevice;
+        try {
+            url = new URL(this.urlString);
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+        Log.d("MyLog", "адрес " + this.urlString);
+        return url;
+    }
 
     //метод который коннектится к серваку и выдает json как JsonObject
     private JSONObject getJsonObject() {
         String resultJson = "";
+        //формирование url
         //можно закинуть весь конект в отдельный метод это будет по фэншую
         do {
-            URL url = null;
-            try {
-                url = new URL(this.urlString);
-            } catch (MalformedURLException e) {
-                e.printStackTrace();
-            }
-            Log.d("MyLog", "адрес " + this.urlString);
+//формирование URl
             HttpURLConnection urlConnection = null;
 
             try {
 
-                urlConnection = (HttpURLConnection) url.openConnection();
+                urlConnection = (HttpURLConnection) buildURL().openConnection();
                 urlConnection.setRequestMethod("GET");
                 urlConnection.connect();
                 Log.d("MyLog", "connect " + urlConnection);
@@ -134,68 +150,68 @@ public class ATupdateData extends AsyncTask<Void, Void, String> {
         return resultreadInputStream;
     }
 
-    private String[] parsJson(JSONObject dataJsonObj) throws JSONException {
-
-        try {
-            JSONArray events = dataJsonObj.getJSONArray("info");
-
-            Log.d("MyLog", "not error in parsJson1 ");
-            for (int i = 0; i < events.length(); i++) {
-                JSONObject jsonEvent = events.getJSONObject(i);
-                String co = "", co2 = "", onoff = "", temperature = "", humidity = "", pressure = "", lamp = "",cooler = "",mode="";
-                Iterator<String> iter = jsonEvent.keys();
-                while (iter.hasNext()) {
-                    String key = iter.next();
-                    switch (key) {
-                        case "co2":
-                            co2 = jsonEvent.getString("co2");
-                            break;
-
-                        case "co":
-                            co = jsonEvent.getString("co");
-                            break;
-                        case "on":
-                            onoff = jsonEvent.getString("on");
-                            break;
-                        case "temperature":
-                            temperature = jsonEvent.getString("temperature");
-                            break;
-                        case "pressure":
-                            pressure = jsonEvent.getString("pressure");
-                            break;
-                        case "humidity":
-                            humidity = jsonEvent.getString("humidity");
-                            break;
-                        case "lamp":
-                            lamp = jsonEvent.getString("lamp");
-                            break;
-                        case "cooler":
-                            cooler = jsonEvent.getString("cooler");
-                            break;
-                        case "mode":
-                            mode = jsonEvent.getString("mode");
-                            break;
-
-                    }
-                    //можно сократить напрямую в массив записывать без беспантовых переменных
-                    dataFromSensors[0] = co2;
-                    dataFromSensors[1] = co;
-                    dataFromSensors[2] = onoff;
-                    dataFromSensors[3] = temperature;
-                    dataFromSensors[4] = pressure;
-                    dataFromSensors[5] = humidity;
-                    dataFromSensors[6] = lamp;
-                    dataFromSensors[7] = cooler;
-                    dataFromSensors[8] = mode;
-                }
-            }
-        } catch (Exception e) {
-
-            //  jsonhave = 2;
-            Log.d("MyLog", "ошибка не верный json ");
-        }
-        return dataFromSensors;
-    }
+//    private String[] parsJson(JSONObject dataJsonObj) throws JSONException {
+//
+//        try {
+//            JSONArray events = dataJsonObj.getJSONArray("info");
+//
+//            Log.d("MyLog", "not error in parsJson1 ");
+//            for (int i = 0; i < events.length(); i++) {
+//                JSONObject jsonEvent = events.getJSONObject(i);
+//                String co = "", co2 = "", onoff = "", temperature = "", humidity = "", pressure = "", lamp = "", cooler = "", mode = "";
+//                Iterator<String> iter = jsonEvent.keys();
+//                while (iter.hasNext()) {
+//                    String key = iter.next();
+//                    switch (key) {
+//                        case "co2":
+//                            co2 = jsonEvent.getString("co2");
+//                            break;
+//
+//                        case "co":
+//                            co = jsonEvent.getString("co");
+//                            break;
+//                        case "on":
+//                            onoff = jsonEvent.getString("on");
+//                            break;
+//                        case "temperature":
+//                            temperature = jsonEvent.getString("temperature");
+//                            break;
+//                        case "pressure":
+//                            pressure = jsonEvent.getString("pressure");
+//                            break;
+//                        case "humidity":
+//                            humidity = jsonEvent.getString("humidity");
+//                            break;
+//                        case "lamp":
+//                            lamp = jsonEvent.getString("lamp");
+//                            break;
+//                        case "cooler":
+//                            cooler = jsonEvent.getString("cooler");
+//                            break;
+//                        case "mode":
+//                            mode = jsonEvent.getString("mode");
+//                            break;
+//
+//                    }
+//                    //можно сократить напрямую в массив записывать без беспантовых переменных
+//                    dataFromSensors[0] = co2;
+//                    dataFromSensors[1] = co;
+//                    dataFromSensors[2] = onoff;
+//                    dataFromSensors[3] = temperature;
+//                    dataFromSensors[4] = pressure;
+//                    dataFromSensors[5] = humidity;
+//                    dataFromSensors[6] = lamp;
+//                    dataFromSensors[7] = cooler;
+//                    dataFromSensors[8] = mode;
+//                }
+//            }
+//        } catch (Exception e) {
+//
+//            //  jsonhave = 2;
+//            Log.d("MyLog", "ошибка не верный json ");
+//        }
+//        return dataFromSensors;
+//    }
 
 }
 

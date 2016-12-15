@@ -12,6 +12,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.pixelcan.recirculator.R;
+import com.pixelcan.recirculator.mainscreen.connect.ConnenctorServer;
 
 /**
  * Класс отвечает за фрагмент регистрации принимает даннные от пользователя проверяет на коректность написания.
@@ -28,7 +29,7 @@ public class FragmentAutorization extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-
+    FragmentAutorization thisfragment;//ссылка для передачи в класс ServerConnector
     public ProgressDialog dialog;
 
     private String mParam1;
@@ -75,52 +76,63 @@ public class FragmentAutorization extends Fragment {
         });
         //Active for touch on Autorization Button
         btnEnter = (Button) v.findViewById(R.id.btnEnter);
+        thisfragment = this;
         btnEnter.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
 
-                //проверяем вернувшийся пароль с сервера
+                //проверка на пустые поля
+                if (checkFieldLoginPass()) {
+                    //запрос на авторизацию
+                    new ConnenctorServer(thisfragment, 2).execute(new String[]{edTxLogin.getText().toString(), "", "", edTxPasw.getText().toString()});
+                }
                 //включаем диалогПрогресс
                 //переходим в активити если ок
-                if (chekedUser()) {
-
-                    ((RegistrationActivity) getActivity()).goToMainActivity();
-                }  //   new ConnenctorServer((AppCompatActivity)getActivity(),1).execute("1");
-                else
-                    Toast.makeText(getActivity(), "Неверный логин или пароль", Toast.LENGTH_SHORT).show();
-                //    showProgressAutentification();
+//                if (chekedUser()) {
+//
+//                    ((RegistrationActivity) getActivity()).goToMainActivity();
+//                }  //   new ConnenctorServer((AppCompatActivity)getActivity(),1).execute("1");
+//                else
+//                    Toast.makeText(getActivity(), "Неверный логин или пароль", Toast.LENGTH_SHORT).show();
+//                //    showProgressAutentification();
             }
         });
         return v;
 
     }
 
+    /**
+     * проверяет ввел ли пользователь данные перед тем как сделать запрос на сервер
+     *
+     * @return возвращает результат проверки
+     */
+    private boolean checkFieldLoginPass() {
+        boolean rezult = false;
+        if (edTxLogin.getText() != null && edTxPasw.getText() != null && !edTxLogin.getText().toString().isEmpty() && !edTxPasw.getText().toString().isEmpty()) {
+            rezult = true;
+        }
+        return rezult;
+    }
+
 
     /**
      * Метод для проверки введеных данных пароли сохраняются на устройстве
      */
-    private boolean chekedUser() {
-        boolean checkUser = false;
-        String[] identifmass = ((RegistrationActivity) getActivity()).loadText();
-        String login = edTxLogin.getText().toString();
-        String password = edTxPasw.getText().toString();
-        if (login.equals(identifmass[0]) && password.equals(identifmass[1])){
-            checkUser = true;}
-//        Toast.makeText(getActivity(), "Text loaded"+identifmass[0]+"//asdasdasdad//"+identifmass[1], Toast.LENGTH_SHORT).show();
-        return checkUser;
-    }
+    public void chekedUser(boolean flag) {
+        if (flag) {
 
-    /**
-     * Метод выводит Прогресс диалог загрузки данных с сервера
-     */
- /*   private void showProgressAutentification() {
+            ((RegistrationActivity) getActivity()).goToMainActivity();
+        } else
+            Toast.makeText(getActivity(), "Неверный логин или пароль", Toast.LENGTH_SHORT).show();
 
-        dialog = new ProgressDialog(getActivity());
-        dialog.setMessage("Проверка...");
-        dialog.setIndeterminate(true);
-        dialog.setCancelable(true);
-        dialog.show();
+//        boolean checkUser = false;
+//        String[] identifmass = ((RegistrationActivity) getActivity()).loadText();
+//        String login = edTxLogin.getText().toString();
+//        String password = edTxPasw.getText().toString();
+//        if (login.equals(identifmass[0]) && password.equals(identifmass[1])){
+//            checkUser = true;}
+////        Toast.makeText(getActivity(), "Text loaded"+identifmass[0]+"//asdasdasdad//"+identifmass[1], Toast.LENGTH_SHORT).show();
+//        return checkUser;
     }
-*/
 
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {

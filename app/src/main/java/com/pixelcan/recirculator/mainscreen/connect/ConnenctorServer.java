@@ -1,16 +1,16 @@
 package com.pixelcan.recirculator.mainscreen.connect;
 
-import android.app.ListActivity;
+import android.annotation.TargetApi;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
-import android.support.v7.app.AppCompatActivity;
+import android.os.Build;
 import android.util.Log;
 
+import com.pixelcan.recirculator.mainscreen.autorization.FragmentAutorization;
 import com.pixelcan.recirculator.mainscreen.autorization.RegistrationActivity;
 import com.pixelcan.recirculator.mainscreen.untils.ParserJSON;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -20,18 +20,18 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
+import java.net.ProtocolException;
 import java.net.URL;
-import java.util.Iterator;
 import java.util.concurrent.TimeUnit;
 
 /**
  * Класс для подключения к серверу.ОДин экземляр этого класса вызывается для регистрации пользователя
- * Другой для авторизации.Третии для регулятрного запроса данных с датчиков от сервера в реальном времени.
+ * Другой для авторизации.
  * Взависимости от того какую задачу мы хотим вызвать,мы передаем соответствующий параметр.
  * параметр String params[0]:
  * 1---Регистрируем пользователя
  * 2---Авторизуем пользователя
- * 3---Запрос данных с датчиков и текущее состояние рециркулятора
+ * 3---Запрашивем список устройств
  * 4--- отправка команд на сервер
  * <p/>
  * На вход класс принимает разное число параметров String ... params
@@ -53,13 +53,14 @@ public class ConnenctorServer extends AsyncTask<String, Void, String> {
      * application context.ProgressDialog need activity and context
      */
     private RegistrationActivity activity;
+    private FragmentAutorization fragmentAutorization;
     private Context context;
     private int comand;
     private String login;
     private String firstname;
     private String secondname;
     private String password;
-
+    private boolean flagAutorization=false;
 
 
     public ConnenctorServer(RegistrationActivity activity, int comand) {
@@ -69,14 +70,24 @@ public class ConnenctorServer extends AsyncTask<String, Void, String> {
         this.comand = comand;
     }
 
+    @TargetApi(Build.VERSION_CODES.M)
+    public ConnenctorServer(FragmentAutorization thisfragment, int comand) {
+        this.comand = comand;
+        context = thisfragment.getContext();
+        dialog = new ProgressDialog(context);
+        this.fragmentAutorization = thisfragment;
+    }
+
+
     @Override
     protected void onPreExecute() {
         super.onPreExecute();
+        if(comand==1){
         dialog.setMessage("Соединение с сервером...");
         dialog.setIndeterminate(true);
         dialog.setCancelable(true);
         dialog.show();
-    }
+    }}
 
 
     @Override
@@ -86,19 +97,20 @@ public class ConnenctorServer extends AsyncTask<String, Void, String> {
         this.firstname = params[1];
         this.secondname = params[2];
         this.password = params[3];
-      //  String s = params[0];
-        getUrl(comand);
+        //  String s = params[0];
+    //    getUrl(comand);
         /*
         сделаем отдельный класс ParJson В пакете Untils
          */
         ParserJSON parserJson = new ParserJSON();
         try {
-            switch (comand){
+            switch (comand) {
                 case 1://парсить ответ после попытки авторизации
-                    parserJson.getDatafterRegistration( getJsonObject());
+                    parserJson.getDatafterRegistration(getJsonObject());
                     break;
-
-
+                case 2://авторизация
+                    flagAutorization = parserJson.getDataforAutorization(getJsonObject());
+                    break;
             }
 
         } catch (JSONException e) {
@@ -126,18 +138,15 @@ public class ConnenctorServer extends AsyncTask<String, Void, String> {
         String urlString = "";
         switch (comand) {
             case 1://get-запрос для регистрации
-                urlString ="https://doctorair.tk/addnewuser/"+this.login+"_"+this.firstname+"_"+this.secondname
-                        +"_"+secondname+"_"+this.password;
-                Log.d(forLogTrace, "Запрос на регистрацию"+urlString);
+                urlString = "https://doctorair.tk/addnewuser/" + this.login + "_" + this.firstname + "_" + this.secondname
+                        + "_" + secondname + "_" + this.password;
+                Log.d(forLogTrace, "Запрос на регистрацию" + urlString);
                 break;
             case 2:// get-запрос для авторизации
-                urlString = "https://doctorair.tk/getlistdevice/"+this.login+"_"+this.password;
-                urlString = null;
+                urlString = "https://doctorair.tk/getlistdevices/" + this.login + "_" + this.password;
                 break;
             case 3: //get-запрос для считывания инфы с датчиков
                 urlString = "https://doctorair.tk/commands/account_info_937126143";
-//                urlString = "https://doctorair.tk/commands/account_info_12QfBKI5wQ";
-
                 break;
             default:
                 Log.d(forLogError, "неверная команда");
@@ -164,7 +173,7 @@ public class ConnenctorServer extends AsyncTask<String, Void, String> {
         JSONObject dataJsonObj = null;
         int repetitionCount = 0; //счетчик для подсчета неудачных попыток подключения к серверу
         do {
-            getUrl(this.comand);
+//            getUrl(this.comand);
             HttpURLConnection urlConnection = null;
 
             try {
@@ -174,23 +183,25 @@ public class ConnenctorServer extends AsyncTask<String, Void, String> {
                 urlConnection.connect();
 
                 InputStream inputStream = urlConnection.getInputStream();
-                ///////////////////////////////////////////////////
-                dataJsonObj = new JSONObject(readInputStream(inputStream));
-            } catch (IOException e) {
+              //  Log.d(forLogError, "readInput "+readInputStream(inputStream).toString());
+                resultJson = readInputStream(inputStream);
+                Log.d("MyLog", "ответ сервера JSON " + resultJson);
+                dataJsonObj = new JSONObject(resultJson);
+            } catch (JSONException e) {
                 Log.d(forLogError, "проблемы с сервером");
                 //   jsonhave = 1;
                 sleep();
-            } catch (JSONException e) {
-                Log.d("forLogError", "не удалось получить объект JSON");
-                //    jsonhave = 1;
-                sleep();
+            } catch (ProtocolException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
             }
             ///сообщить пользователю  том что проблемы с сервером
             //проблема когда ушли в сон он не останавливается.
         }
         while (resultJson.isEmpty() && repetitionCount > 6);
         //   jsonhave = 0;
-        Log.d(forLogTrace,"there"+resultJson);
+        Log.d(forLogTrace, "there" + resultJson);
         return dataJsonObj;
     }
 
@@ -215,6 +226,7 @@ public class ConnenctorServer extends AsyncTask<String, Void, String> {
     }
 
     /**
+     * sleep()
      * останавливает поток на 6 секунд
      */
     void sleep() {
@@ -227,10 +239,24 @@ public class ConnenctorServer extends AsyncTask<String, Void, String> {
 
     @Override
     protected void onPostExecute(String s) {
-        dialog.dismiss();
-        activity.goToMainActivity();
-        activity.saveText(this.login,this.password);
-        String [] mass = activity.loadText();
+        switch (comand) {
+            case 1://регистрация
+                dialog.dismiss();
+                activity.goToMainActivity();
+                /*
+                лучше что бы он переходил на основной экран и тот авторизовался
+                 */
+                break;
+            case 2:
+                fragmentAutorization.chekedUser(flagAutorization);
+                break;
+        }
+
+
+//        dialog.dismiss();
+//        activity.goToMainActivity();
+//        activity.saveText(this.login,this.password);
+//        String [] mass = activity.loadText();
         super.onPostExecute(s);
     }
 }
