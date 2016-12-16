@@ -5,6 +5,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Build;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
 import com.pixelcan.recirculator.mainscreen.autorization.FragmentAutorization;
@@ -52,7 +53,7 @@ public class ConnenctorServer extends AsyncTask<String, Void, String> {
     /**
      * application context.ProgressDialog need activity and context
      */
-    private RegistrationActivity activity;
+    private AppCompatActivity activity;
     private FragmentAutorization fragmentAutorization;
     private Context context;
     private int comand;
@@ -61,7 +62,7 @@ public class ConnenctorServer extends AsyncTask<String, Void, String> {
     private String secondname;
     private String password;
     private boolean flagAutorization=false;
-
+    private String idDevice;
 
     public ConnenctorServer(RegistrationActivity activity, int comand) {
         this.activity = activity;
@@ -131,7 +132,7 @@ public class ConnenctorServer extends AsyncTask<String, Void, String> {
      *               1---Регистрируем пользователя
      *               2---Авторизуем пользователя
      *               3---Запрос данных с датчиков и текущее состояние рециркулятора
-     *               4---Отправить команду рециркулятору
+     *               4---get-запрос списка устройств
      * @return возвращает необходимый Url как класс
      */
     private URL getUrl(int comand) {
@@ -148,6 +149,9 @@ public class ConnenctorServer extends AsyncTask<String, Void, String> {
             case 3: //get-запрос для считывания инфы с датчиков
                 urlString = "https://doctorair.tk/commands/account_info_937126143";
                 break;
+//            case 4://get-запрос списка устройств
+//                urlString = "https://doctorair.tk/getlistdevices/" + this.login + "_" + this.password;
+//                break;
             default:
                 Log.d(forLogError, "неверная команда");
                 break;
@@ -173,7 +177,6 @@ public class ConnenctorServer extends AsyncTask<String, Void, String> {
         JSONObject dataJsonObj = null;
         int repetitionCount = 0; //счетчик для подсчета неудачных попыток подключения к серверу
         do {
-//            getUrl(this.comand);
             HttpURLConnection urlConnection = null;
 
             try {
@@ -242,7 +245,7 @@ public class ConnenctorServer extends AsyncTask<String, Void, String> {
         switch (comand) {
             case 1://регистрация
                 dialog.dismiss();
-                activity.goToMainActivity();
+                ((RegistrationActivity)activity).goToMainActivity(this.login,this.password);
                 /*
                 лучше что бы он переходил на основной экран и тот авторизовался
                  */
@@ -251,12 +254,6 @@ public class ConnenctorServer extends AsyncTask<String, Void, String> {
                 fragmentAutorization.chekedUser(flagAutorization);
                 break;
         }
-
-
-//        dialog.dismiss();
-//        activity.goToMainActivity();
-//        activity.saveText(this.login,this.password);
-//        String [] mass = activity.loadText();
         super.onPostExecute(s);
     }
 }

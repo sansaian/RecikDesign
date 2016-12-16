@@ -120,7 +120,7 @@ public class FragmentAutorization extends Fragment {
     public void chekedUser(boolean flag) {
         if (flag) {
 
-            ((RegistrationActivity) getActivity()).goToMainActivity();
+            ((RegistrationActivity) getActivity()).goToMainActivity(edTxLogin.getText().toString(),edTxPasw.getText().toString());
         } else
             Toast.makeText(getActivity(), "Неверный логин или пароль", Toast.LENGTH_SHORT).show();
 

@@ -50,8 +50,10 @@ public class RegistrationActivity extends AppCompatActivity {
     /**
      * Переход на основной экран приложения из авторизации или регистрации
      */
-    public void goToMainActivity() {
+    public void goToMainActivity(String login,String password) {
         Intent intent = new Intent(this, MainActivity.class);
+        intent.putExtra("login", login);
+        intent.putExtra("password", password);
         startActivity(intent);
     }
 
@@ -62,6 +64,11 @@ public class RegistrationActivity extends AppCompatActivity {
         ed.putString("password", password);
         ed.commit();
     }
+
+    /**
+     * читает с файла пароль что бы не вводить заного на данном этапе не используется
+     * @return
+     */
     public String [] loadText() {
         String[] massidentif = new String [2];
         sPref = getPreferences(MODE_PRIVATE);

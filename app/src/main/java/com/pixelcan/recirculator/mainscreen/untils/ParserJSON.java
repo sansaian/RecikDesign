@@ -128,5 +128,9 @@ public class ParserJSON {
         }
         return rezult;
     }
+
+    public String getIdDevice(JSONObject jsonObject){
+        return null;
+    }
 }
 
