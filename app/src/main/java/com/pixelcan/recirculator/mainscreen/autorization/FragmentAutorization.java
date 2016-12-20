@@ -85,15 +85,6 @@ public class FragmentAutorization extends Fragment {
                     //запрос на авторизацию
                     new ConnenctorServer(thisfragment, 2).execute(new String[]{edTxLogin.getText().toString(), "", "", edTxPasw.getText().toString()});
                 }
-                //включаем диалогПрогресс
-                //переходим в активити если ок
-//                if (chekedUser()) {
-//
-//                    ((RegistrationActivity) getActivity()).goToMainActivity();
-//                }  //   new ConnenctorServer((AppCompatActivity)getActivity(),1).execute("1");
-//                else
-//                    Toast.makeText(getActivity(), "Неверный логин или пароль", Toast.LENGTH_SHORT).show();
-//                //    showProgressAutentification();
             }
         });
         return v;

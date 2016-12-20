@@ -4,6 +4,8 @@ package com.pixelcan.recirculator.mainscreen;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.Gravity;
+import android.widget.Toast;
 
 import com.pixelcan.recirculator.mainscreen.untils.ParserJSON;
 
@@ -68,14 +70,19 @@ public class ATupdateData extends AsyncTask<Void, Void, String> {
             fragmentAdapter.framentMass[0].stateModesMass(dataFromSensors[2], dataFromSensors[8]);
             fragmentAdapter.framentMass[1].fullTextviewData(dataFromSensors);
             fragmentAdapter.framentMass[1].stateModesMass(dataFromSensors[2], dataFromSensors[8]);
-
         }
 
-    }
+        if(((MainActivity) activity).getIdDevice()!=null){
+            Toast toast = Toast.makeText(activity,
+                    "У вас нет подключенных устройств",
+                    Toast.LENGTH_SHORT);
+            toast.setGravity(Gravity.BOTTOM, 0, 0);
+            toast.show();
+        }
+            }
 
     private URL buildURL() {
         String idDevice = ((MainActivity) this.activity).getIdDevice();
-        if(idDevice==null)idDevice="937126143";
         URL url = null;
         this.urlString = "https://doctorair.tk/commands/account_info_" + idDevice;
         try {

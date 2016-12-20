@@ -64,7 +64,7 @@ public class ConnenctorServer extends AsyncTask<String, Void, String> {
     private boolean flagAutorization=false;
     private String idDevice;
 
-    public ConnenctorServer(RegistrationActivity activity, int comand) {
+    public ConnenctorServer(AppCompatActivity activity, int comand) {
         this.activity = activity;
         context = activity;
         dialog = new ProgressDialog(context);
@@ -112,6 +112,8 @@ public class ConnenctorServer extends AsyncTask<String, Void, String> {
                 case 2://авторизация
                     flagAutorization = parserJson.getDataforAutorization(getJsonObject());
                     break;
+                case 4:
+                    idDevice = parserJson.getParseIdDevice(getJsonObject());
             }
 
         } catch (JSONException e) {
@@ -149,9 +151,9 @@ public class ConnenctorServer extends AsyncTask<String, Void, String> {
             case 3: //get-запрос для считывания инфы с датчиков
                 urlString = "https://doctorair.tk/commands/account_info_937126143";
                 break;
-//            case 4://get-запрос списка устройств
-//                urlString = "https://doctorair.tk/getlistdevices/" + this.login + "_" + this.password;
-//                break;
+            case 4://get-запрос списка устройств
+                urlString = "https://doctorair.tk/getlistdevices/" + this.login + "_" + this.password;
+                break;
             default:
                 Log.d(forLogError, "неверная команда");
                 break;

@@ -50,13 +50,20 @@ public class RegistrationActivity extends AppCompatActivity {
     /**
      * Переход на основной экран приложения из авторизации или регистрации
      */
-    public void goToMainActivity(String login,String password) {
+    public void goToMainActivity(String login, String password) {
         Intent intent = new Intent(this, MainActivity.class);
         intent.putExtra("login", login);
         intent.putExtra("password", password);
         startActivity(intent);
     }
 
+    /**
+     * Сохраняет логин и пароль в специальный защищенный файл.видный только этому приложению
+     * будет использоваться в следующих версиях
+     *
+     * @param login
+     * @param password
+     */
     public void saveText(String login, String password) {
         sPref = getPreferences(MODE_PRIVATE);
         SharedPreferences.Editor ed = sPref.edit();
@@ -67,14 +74,14 @@ public class RegistrationActivity extends AppCompatActivity {
 
     /**
      * читает с файла пароль что бы не вводить заного на данном этапе не используется
+     *
      * @return
      */
-    public String [] loadText() {
-        String[] massidentif = new String [2];
+    public String[] loadText() {
+        String[] massidentif = new String[2];
         sPref = getPreferences(MODE_PRIVATE);
-         massidentif[0]  = sPref.getString("login", "");
-        massidentif[1]  = sPref.getString("password", "");
-//        Toast.makeText(this, "Text loaded"+massidentif[0]+"////"+massidentif[1], Toast.LENGTH_SHORT).show();
+        massidentif[0] = sPref.getString("login", "");
+        massidentif[1] = sPref.getString("password", "");
         return massidentif;
     }
 }

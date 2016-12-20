@@ -129,8 +129,11 @@ public class ParserJSON {
         return rezult;
     }
 
-    public String getIdDevice(JSONObject jsonObject){
-        return null;
+
+    public String getParseIdDevice(JSONObject jsonObject) {
+        String idDevice=null;
+        //логика как парсить.Нужно что бы Макс сервер доделал
+        return idDevice;
     }
 }
 

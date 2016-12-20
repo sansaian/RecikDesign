@@ -1,6 +1,5 @@
 package com.pixelcan.recirculator.mainscreen;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -13,10 +12,10 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import android.widget.Toast;
 
 import com.pixelcan.inkpageindicator.InkPageIndicator;
 import com.pixelcan.recirculator.R;
+import com.pixelcan.recirculator.mainscreen.connect.ConnenctorServer;
 import com.pixelcan.recirculator.mainscreen.mainscreen.DialogAddRecirculator;
 
 import java.util.Timer;
@@ -51,12 +50,10 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        //запрос idDevice у сервера
-        // передать логин и пароль?
-
         mAdapter = new FragmentAdapter(getSupportFragmentManager(), typeView);
         mPager = (ViewPager) findViewById(R.id.pager);
         addRecirculatorButton = (ImageButton) findViewById(R.id.imageButton);
+
         View.OnClickListener addRecirculatorListener = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -65,15 +62,18 @@ public class MainActivity extends AppCompatActivity {
             }
         };
 
-        Intent intent = getIntent();
-
-        login = intent.getStringExtra("login");
-        password = intent.getStringExtra("password");
-        Log.d(SECTION_FOR_LOG, "login+Pass "+login+"   "+password);
+        Log.d(SECTION_FOR_LOG, "login+Pass " + login + "   " + password);
         addRecirculatorButton.setOnClickListener(addRecirculatorListener);
         mIndicator = (InkPageIndicator) findViewById(R.id.indicator);
         changeFrame(R.string.modes);
         radiogroup1 = (RadioGroup) findViewById(R.id.radiogroup1);
+
+        Intent intent = getIntent();
+        login = intent.getStringExtra("login");
+        password = intent.getStringExtra("password");
+        //запрос idDevice у сервера
+        requestIdDevicefromServer();
+
         callAsynchronousTask();
 
         radioListener = new View.OnClickListener() {
@@ -104,6 +104,7 @@ public class MainActivity extends AppCompatActivity {
         buttondatainfo.setOnClickListener(radioListener);
     }
 
+
     //смена экрана с информацией и экран с командами.Вызываем
     private void changeFrame(int idscreenFrame) {
         mAdapter.setTypeView(getString(idscreenFrame));
@@ -111,8 +112,9 @@ public class MainActivity extends AppCompatActivity {
         mIndicator.setViewPager(mPager);
     }
 
-    //Метод вызывающий ATupdateData по расписанию можно сделать fпаблик и передавать в атрибуты
-    public void callAsynchronousTask() {
+    //Метод вызывающий ATupdateData по расписанию
+    //Почему паблик?????
+    private void callAsynchronousTask() {
 
 //        final String url = "https://doctorair.tk/commands/account_info_"+idDevice;
         //final String url = "https://doctorair.tk/commands/account_request_12QfBKI5wQ_%7B%22off%22:0,%22mode%22:1,%22mode_param%22:%22%22%7D";
@@ -127,9 +129,6 @@ public class MainActivity extends AppCompatActivity {
                         try {
                             ATupdateData atUpdateData = new ATupdateData(activity, mAdapter);
                             atUpdateData.execute();
-
-                            // ConnectorRecirculator connectorRecirculator = new ConnectorRecirculator();
-                            // connectorRecirculator.execute();
                         } catch (Exception e) {
                         }
                     }
@@ -140,10 +139,14 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
-
+    /**
+     * запрос Текущего id устройства через запрос getlistdevices
+     */
+    public void requestIdDevicefromServer() {
+        new ConnenctorServer(this, 4).execute(new String[]{login, "", "", password});
+    }
     /**
      * Установтиь id Устройства для запроса
-     *
      * @param idDevice
      */
     public void setIdDevice(String idDevice) {
